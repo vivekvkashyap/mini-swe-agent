@@ -227,8 +227,8 @@ agent:
     </output_tail>
     {%- endif %}
     Please try another command and make sure to avoid those requiring interactive input.
-  step_limit: 250
-  cost_limit: 3.
+  step_limit: 50
+  cost_limit: 0.5
 
 environment:
   cwd: "/testbed"
