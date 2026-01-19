@@ -63,41 +63,9 @@ agent:
 
     Remember that your sub-LLMs are powerful -- they can fit around 500K characters in their context window, so don't be afraid to put a lot of context into them.
 
-    ═══════════════════════════════════════════════════════════════════════════════
-    CRITICAL - HOW TO SUBMIT YOUR FIX:
-    ═══════════════════════════════════════════════════════════════════════════════
-    
-    When you have made changes to fix the bug, you MUST submit using one of these:
-    
-    1. FINAL(done) - Use this when you have modified files and believe the fix is complete
-    2. FINAL_VAR(variable_name) - Use this to return a specific variable as output
-    
-    WHEN TO USE FINAL:
-    - After you use write_file() to save your changes, submit with FINAL(done)
-    - You do NOT need to run tests before submitting
-    - You do NOT need to verify the fix works - just make the change and submit
-    - If you've been working for several iterations, submit what you have
-    
-    EXAMPLE - After making a fix:
-    ```repl
-    # Read the file
-    code = read_file("/testbed/src/module.py")
-    
-    # Modify the code
-    fixed_code = code.replace("old_bug", "new_fix")
-    
-    # Write the fix
-    write_file("/testbed/src/module.py", fixed_code)
-    print("Fix applied!")
-    ```
-    
-    FINAL(done)
-    
-    DO NOT:
-    - Keep iterating indefinitely trying to make tests pass
-    - Repeat the same action more than 2-3 times
-    - Forget to call FINAL(done) after making changes
-    ═══════════════════════════════════════════════════════════════════════════════
+    IMPORTANT: When you are done with the iterative process, you MUST provide a final answer using one of these:
+    1. Use `FINAL(done)` to indicate you've completed the fix
+    2. Use `FINAL_VAR(variable_name)` to return a variable you have created as your final output
 
     Think step by step carefully, plan, and execute this plan immediately in your response -- do not just say "I will do this" or "I will do that". Output to the REPL environment and recursive LLMs as much as possible.
 
@@ -113,12 +81,6 @@ agent:
 
     Think step-by-step on what to do using the REPL environment to solve the issue. Continue using the REPL environment, which has the `context` variable (containing the issue and repo path), and query sub-LLMs by writing ```repl``` code blocks.
 
-    WORKFLOW:
-    1. Explore: Understand the issue and find relevant files
-    2. Analyze: Use llm_query() to understand the code
-    3. Fix: Modify the file(s) using write_file()
-    4. Submit: Call FINAL(done) after making your changes
-
     Start by exploring:
 
     ```repl
@@ -132,8 +94,6 @@ agent:
     ```
 
     Then explore the repository structure and find relevant files.
-    
-    REMEMBER: After you fix the code with write_file(), submit immediately with FINAL(done).
 
     Your next action:
     </instructions>

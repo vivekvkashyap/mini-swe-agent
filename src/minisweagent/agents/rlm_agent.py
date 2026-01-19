@@ -42,26 +42,18 @@ def find_repl_blocks(text: str) -> list[str]:
 
 
 def find_final_answer(text: str) -> tuple[str, str] | None:
-    """Find FINAL(...) or FINAL_VAR(...) statement in response.
-    
-    More lenient matching - looks for FINAL/FINAL_VAR anywhere in the text,
-    not just at the start of a line.
-    """
-    # Check for FINAL_VAR pattern first - match anywhere in text
-    if "FINAL_VAR" in text:
-        # Pattern: FINAL_VAR(content) - content can be a variable name
-        final_var_pattern = r"FINAL_VAR\s*\(\s*([^)]*)\s*\)"
-        match = re.search(final_var_pattern, text)
-        if match:
-            return ("FINAL_VAR", match.group(1).strip())
+    """Find FINAL(...) or FINAL_VAR(...) statement in response."""
+    # Check for FINAL_VAR pattern first
+    final_var_pattern = r"^\s*FINAL_VAR\((.*?)\)"
+    match = re.search(final_var_pattern, text, re.MULTILINE | re.DOTALL)
+    if match:
+        return ("FINAL_VAR", match.group(1).strip())
 
-    # Check for FINAL pattern - match anywhere in text
-    if "FINAL" in text and "FINAL_VAR" not in text:
-        # Pattern: FINAL(content) - content is usually "done" or similar
-        final_pattern = r"FINAL\s*\(\s*([^)]*)\s*\)"
-        match = re.search(final_pattern, text)
-        if match:
-            return ("FINAL", match.group(1).strip())
+    # Check for FINAL pattern
+    final_pattern = r"^\s*FINAL\((.*?)\)"
+    match = re.search(final_pattern, text, re.MULTILINE | re.DOTALL)
+    if match:
+        return ("FINAL", match.group(1).strip())
 
     return None
 
@@ -139,11 +131,6 @@ class RLMAgent:
         self.add_message("system", self.config.system_template)
         self.add_message("user", self._format_instance_template(task))
 
-        # Track state for loop detection and file modifications
-        recent_action_hashes: list[int] = []
-        files_modified = False
-        loop_warning_sent = False
-
         try:
             for iteration in range(self.config.max_iterations):
                 self._check_limits()
@@ -159,40 +146,11 @@ class RLMAgent:
                 response_content = response.get("content", "")
                 self.add_message("assistant", response_content)
 
-                # --- Loop Detection ---
-                # Remove numbers and whitespace to detect semantic similarity
-                import re
-                normalized_content = re.sub(r'\d+', 'N', response_content[:500])  # Replace all numbers with 'N'
-                normalized_content = re.sub(r'\s+', ' ', normalized_content)  # Normalize whitespace
-                action_hash = hash(normalized_content)
-                recent_action_hashes.append(action_hash)
-                if len(recent_action_hashes) > 5:
-                    recent_action_hashes.pop(0)
-                
-                # Detect if stuck in a loop (same action 3+ times in a row)
-                if len(recent_action_hashes) >= 3 and len(set(recent_action_hashes[-3:])) == 1:
-                    if not loop_warning_sent:
-                        self.add_message(
-                            "user",
-                            "⚠️ WARNING: You appear to be stuck in a loop repeating the same action with different numbers. "
-                            "This approach is NOT working. You need to try something COMPLETELY DIFFERENT.\n\n"
-                            "If you have already made changes to fix the issue, submit your solution now using FINAL(done). "
-                            "If not, stop what you're doing and try a different strategy."
-                        )
-                        loop_warning_sent = True
-                        # Reset to allow the model to try something new
-                        recent_action_hashes.clear()
-                        continue
-
                 # Find and execute REPL code blocks
                 code_blocks = find_repl_blocks(response_content)
 
                 if code_blocks:
                     for code in code_blocks:
-                        # Track if files are being modified
-                        if "write_file" in code:
-                            files_modified = True
-                        
                         result = self.repl_env.code_execution(code)
                         formatted_result = format_execution_result(
                             result.stdout, result.stderr, result.locals
@@ -233,26 +191,6 @@ class RLMAgent:
                                 "user",
                                 f"Error: Variable '{variable_name}' not found in REPL environment. Please define it or use a different variable.",
                             )
-
-                # --- Prompt to submit after file changes ---
-                if files_modified and iteration >= 10 and iteration % 5 == 0:
-                    self.add_message(
-                        "user",
-                        "📝 REMINDER: You have modified files in the repository. "
-                        "If you believe your fix is complete, please submit using FINAL(done). "
-                        "You do NOT need to wait for tests to pass - just ensure your code changes are correct and submit."
-                    )
-                
-                # --- Force stop if exploring too long without making changes ---
-                if not files_modified and iteration >= 50:
-                    self.add_message(
-                        "user",
-                        "🛑 CRITICAL: You have been exploring for 50+ iterations without making ANY file changes. "
-                        "You MUST either:\n"
-                        "1. Make a fix using write_file() and submit with FINAL(done), OR\n"
-                        "2. If you cannot find the issue, submit the current state with FINAL(done)\n\n"
-                        "Do NOT continue exploring indefinitely. Make a decision now."
-                    )
 
                 # Add continuation prompt if no final answer
                 if not code_blocks and not final_result:
@@ -295,21 +233,11 @@ class RLMAgent:
                 "Continue using the REPL environment, which has the `context` variable, and query sub-LLMs "
                 "by writing ```repl``` code blocks. Your next action:"
             )
-        
-        reminder = ""
-        if iteration >= 5:
-            reminder = (
-                "\n\n💡 REMINDER: If you have already made changes using write_file(), "
-                "you should submit your fix now using FINAL(done). "
-                "Do not keep iterating - submit what you have."
-            )
-        
         return (
             "The history before is your previous interactions with the REPL environment. "
             f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
             "Continue using the REPL environment, which has the `context` variable (with `context['issue']` and "
-            "`context['repo_path']`), and query sub-LLMs using `llm_query()` by writing ```repl``` code blocks."
-            f"{reminder}\n\n"
+            "`context['repo_path']`), and query sub-LLMs using `llm_query()` by writing ```repl``` code blocks.\n\n"
             "Your next action:"
         )
 
