@@ -54,11 +54,6 @@ class ProgressTrackingRLMAgent(RLMAgent):
         self.progress_manager: RunBatchProgressManager = progress_manager
         self.instance_id = instance_id
 
-    def run(self, task: str, **kwargs) -> tuple[str, str]:
-        """Override run to provide progress updates."""
-        self.progress_manager.update_instance_status(self.instance_id, "Running RLM Agent")
-        return super().run(task, **kwargs)
-
 
 def get_swebench_docker_image_name(instance: dict) -> str:
     """Get the image name for a SWEBench instance."""
@@ -185,18 +180,17 @@ def filter_instances(
 @app.command(help=_HELP_TEXT)
 def main(
     subset: str = typer.Option("lite", "--subset", help="SWEBench subset to use or path to a dataset"),
-    split: str = typer.Option("dev", "--split", help="Dataset split"),
+    split: str = typer.Option("test", "--split", help="Dataset split"),
     slice_spec: str = typer.Option("", "--slice", help="Slice specification (e.g., '0:5' for first 5 instances)"),
     filter_spec: str = typer.Option("", "--filter", help="Filter instance IDs by regex"),
     shuffle: bool = typer.Option(False, "--shuffle", help="Shuffle instances"),
     output: str = typer.Option("", "-o", "--output", help="Output directory"),
     workers: int = typer.Option(1, "-w", "--workers", help="Number of worker threads"),
     model: str | None = typer.Option(None, "-m", "--model", help="Model to use"),
-    model_class: str | None = typer.Option("rlm", "-c", "--model-class", help="Model class (default: rlm)"),
+    model_class: str | None = typer.Option("rlm", "--model-class", help="Model class (default: rlm)"),
     redo_existing: bool = typer.Option(False, "--redo-existing", help="Redo existing instances"),
     config_spec: Path = typer.Option(
         builtin_config_dir / "extra" / "swebench_rlm.yaml",
-        "-c",
         "--config",
         help="Path to a config file",
     ),

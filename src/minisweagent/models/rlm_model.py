@@ -50,6 +50,32 @@ class RLMModel:
         self.n_calls: int = 0
         self._input_tokens: int = 0
         self._output_tokens: int = 0
+        
+        # Pricing per 1M tokens (as of 2024)
+        self._pricing = self._get_model_pricing(model_name)
+    
+    def _get_model_pricing(self, model_name: str) -> dict:
+        """Get pricing for the model (per 1M tokens)."""
+        pricing_map = {
+            # GPT-4o models
+            "gpt-4o": {"input": 2.50, "output": 10.00},
+            "gpt-4o-mini": {"input": 0.15, "output": 0.60},
+            "gpt-4o-2024-11-20": {"input": 2.50, "output": 10.00},
+            "gpt-4o-2024-08-06": {"input": 2.50, "output": 10.00},
+            "gpt-4o-2024-05-13": {"input": 5.00, "output": 15.00},
+            # GPT-4 Turbo
+            "gpt-4-turbo": {"input": 10.00, "output": 30.00},
+            "gpt-4-turbo-2024-04-09": {"input": 10.00, "output": 30.00},
+            # GPT-4
+            "gpt-4": {"input": 30.00, "output": 60.00},
+            "gpt-4-32k": {"input": 60.00, "output": 120.00},
+            # GPT-3.5 Turbo
+            "gpt-3.5-turbo": {"input": 0.50, "output": 1.50},
+            "gpt-3.5-turbo-0125": {"input": 0.50, "output": 1.50},
+        }
+        
+        # Return pricing if found, otherwise use gpt-4o pricing as default
+        return pricing_map.get(model_name, {"input": 2.50, "output": 10.00})
 
     def query(self, messages: list[dict[str, str]], **kwargs) -> dict:
         """Query the model and return the response."""
@@ -67,12 +93,16 @@ class RLMModel:
 
             self.n_calls += 1
 
-            # Track token usage and estimate cost
+            # Track token usage and calculate accurate cost
             if response.usage:
                 self._input_tokens += response.usage.prompt_tokens
                 self._output_tokens += response.usage.completion_tokens
-                # Rough cost estimate (varies by model)
-                self.cost += (response.usage.prompt_tokens * 0.003 + response.usage.completion_tokens * 0.015) / 1000
+                
+                # Calculate cost based on model pricing (per 1M tokens)
+                input_cost = (response.usage.prompt_tokens / 1_000_000) * self._pricing["input"]
+                output_cost = (response.usage.completion_tokens / 1_000_000) * self._pricing["output"]
+                call_cost = input_cost + output_cost
+                self.cost += call_cost
 
             GLOBAL_MODEL_STATS.add(self.cost)
 
