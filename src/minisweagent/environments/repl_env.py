@@ -48,7 +48,6 @@ class SWEBenchREPLEnv:
 
         # Inject context and tools
         self.globals["context"] = {"issue": issue, "repo_path": repo_path}
-        self.globals["read_file"] = self._read_file
         self.globals["write_file"] = self._write_file
         self.globals["bash"] = self._bash
         self.globals["FINAL_VAR"] = self._final_var
