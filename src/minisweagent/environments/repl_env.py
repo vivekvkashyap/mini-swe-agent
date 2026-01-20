@@ -51,8 +51,10 @@ class SWEBenchREPLEnv:
         self.globals["read_file"] = self._read_file
         self.globals["write_file"] = self._write_file
         self.globals["bash"] = self._bash
-        self.globals["llm_query"] = self._llm_query
         self.globals["FINAL_VAR"] = self._final_var
+        # Only inject llm_query if llm_query_func is provided (depth=1)
+        if llm_query_func is not None:
+            self.globals["llm_query"] = self._llm_query
 
     def _create_safe_globals(self) -> dict:
         """Create a safe globals dict with common built-ins."""

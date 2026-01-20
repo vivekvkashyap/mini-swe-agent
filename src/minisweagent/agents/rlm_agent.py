@@ -13,6 +13,9 @@ from minisweagent.environments.repl_env import SWEBenchREPLEnv
 class RLMAgentConfig(BaseModel):
     system_template: str
     instance_template: str
+    system_template_depth0: str = ""
+    instance_template_depth0: str = ""
+    depth: int = 1  # 0=no sub-LLM, 1=with sub-LLM
     max_iterations: int = 20
     step_limit: int = 0
     cost_limit: float = 3.0
@@ -114,21 +117,35 @@ class RLMAgent:
     def add_message(self, role: str, content: str, **kwargs):
         self.messages.append({"role": role, "content": content, "timestamp": time.time(), **kwargs})
 
+    def _get_effective_system_template(self) -> str:
+        """Get the system template based on depth."""
+        if self.config.depth == 0 and self.config.system_template_depth0:
+            return self.config.system_template_depth0
+        return self.config.system_template
+
+    def _get_effective_instance_template(self) -> str:
+        """Get the instance template based on depth."""
+        if self.config.depth == 0 and self.config.instance_template_depth0:
+            return self.config.instance_template_depth0
+        return self.config.instance_template
+
     def run(self, task: str, **kwargs) -> tuple[str, str]:
         """Run the RLM agent loop until completion or limits exceeded."""
         self.extra_template_vars |= {"task": task, **kwargs}
         self.messages = []
 
         # Initialize REPL environment with Docker-backed tools
+        # Only provide llm_query_func if depth=1
+        llm_query_func = self._llm_query_func if self.config.depth == 1 else None
         self.repl_env = SWEBenchREPLEnv(
             docker_env=self.env,
             issue=task,
             repo_path="/testbed",
-            llm_query_func=self._llm_query_func,
+            llm_query_func=llm_query_func,
         )
 
-        # Add system and initial user messages
-        self.add_message("system", self.config.system_template)
+        # Add system and initial user messages (using depth-appropriate templates)
+        self.add_message("system", self._get_effective_system_template())
         self.add_message("user", self._format_instance_template(task))
 
         try:
@@ -219,27 +236,46 @@ class RLMAgent:
 
     def _format_instance_template(self, task: str) -> str:
         """Format the instance template with task details."""
-        return self.config.instance_template.replace("{{task}}", task)
+        return self._get_effective_instance_template().replace("{{task}}", task)
 
     def _get_continuation_prompt(self, task: str, iteration: int) -> str:
         """Get the continuation prompt for the next iteration (similar to RLM's next_action_prompt)."""
         issue_summary = task[:200] + "..." if len(task) > 200 else task
 
-        if iteration == 0:
+        if self.config.depth == 0:
+            # No sub-LLM available
+            if iteration == 0:
+                return (
+                    "You have not interacted with the REPL environment or seen your context yet. "
+                    "Your next action should be to explore the codebase - don't just provide a final answer yet.\n\n"
+                    f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
+                    "Continue using the REPL environment with `context`, `read_file()`, `write_file()`, and `bash()` "
+                    "by writing ```repl``` code blocks. Your next action:"
+                )
             return (
-                "You have not interacted with the REPL environment or seen your context yet. "
-                "Your next action should be to explore the codebase - don't just provide a final answer yet.\n\n"
+                "The history before is your previous interactions with the REPL environment. "
                 f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-                "Continue using the REPL environment, which has the `context` variable, and query sub-LLMs "
-                "by writing ```repl``` code blocks. Your next action:"
+                "Continue using the REPL environment, which has the `context` variable (with `context['issue']` and "
+                "`context['repo_path']`), and tools like `read_file()`, `write_file()`, `bash()` by writing ```repl``` code blocks.\n\n"
+                "Your next action:"
             )
-        return (
-            "The history before is your previous interactions with the REPL environment. "
-            f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-            "Continue using the REPL environment, which has the `context` variable (with `context['issue']` and "
-            "`context['repo_path']`), and query sub-LLMs using `llm_query()` by writing ```repl``` code blocks.\n\n"
-            "Your next action:"
-        )
+        else:
+            # Sub-LLM available (depth=1)
+            if iteration == 0:
+                return (
+                    "You have not interacted with the REPL environment or seen your context yet. "
+                    "Your next action should be to explore the codebase - don't just provide a final answer yet.\n\n"
+                    f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
+                    "Continue using the REPL environment, which has the `context` variable, and query sub-LLMs "
+                    "by writing ```repl``` code blocks. Your next action:"
+                )
+            return (
+                "The history before is your previous interactions with the REPL environment. "
+                f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
+                "Continue using the REPL environment, which has the `context` variable (with `context['issue']` and "
+                "`context['repo_path']`), and query sub-LLMs using `llm_query()` by writing ```repl``` code blocks.\n\n"
+                "Your next action:"
+            )
 
     def get_template_vars(self) -> dict[str, Any]:
         return self.config.model_dump()

@@ -188,6 +188,7 @@ def main(
     workers: int = typer.Option(1, "-w", "--workers", help="Number of worker threads"),
     model: str | None = typer.Option(None, "-m", "--model", help="Model to use"),
     model_class: str | None = typer.Option("rlm", "--model-class", help="Model class (default: rlm)"),
+    depth: int = typer.Option(1, "-d", "--depth", help="RLM depth (0=no sub-LLM, 1=with sub-LLM)"),
     redo_existing: bool = typer.Option(False, "--redo-existing", help="Redo existing instances"),
     config_spec: Path = typer.Option(
         builtin_config_dir / "extra" / "swebench_rlm.yaml",
@@ -221,6 +222,8 @@ def main(
         config.setdefault("model", {})["model_name"] = model
     if model_class is not None:
         config.setdefault("model", {})["model_class"] = model_class
+    if depth in (0, 1):
+        config.setdefault("agent", {})["depth"] = depth
 
     progress_manager = RunBatchProgressManager(len(instances), output_path / f"exit_statuses_{time.time()}.yaml")
 
