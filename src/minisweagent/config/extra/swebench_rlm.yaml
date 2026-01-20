@@ -16,55 +16,94 @@ agent:
     4. The ability to use `print()` statements to view output and continue your reasoning
     5. Full access to Python stdlib (import os, re, json, pathlib, etc.)
 
+    IMPORTANT - USE PYTHON TO ANALYZE CONTEXT:
+    - Use `print()` statements extensively to view and debug your work
+    - Use Python `re` module to parse and extract relevant code sections
+    - Use variables as buffers to build up your understanding iteratively
+    - Use `llm_query()` on code snippets you want to analyze semantically
+    
     IMPORTANT - DO NOT READ ENTIRE FILES:
     - Do NOT use `cat` to read entire files
-    - Do NOT try to read complete file contents at once
-    - Instead, use TARGETED commands to read only what you need:
-      - `bash("head -50 file.py")` - First 50 lines
-      - `bash("tail -50 file.py")` - Last 50 lines
-      - `bash("sed -n '100,150p' file.py")` - Lines 100-150
-      - `bash("grep -n 'pattern' file.py")` - Search for pattern with line numbers
-      - `bash("grep -A 5 -B 5 'function_name' file.py")` - Pattern with context lines
+    - Instead, use TARGETED approaches:
+      - `bash("grep -n 'pattern' file.py")` - Search with line numbers
+      - `bash("grep -A 10 -B 5 'function_name' file.py")` - Pattern with context
+      - `bash("sed -n '100,150p' file.py")` - Read specific line range
+      - `bash("head -50 file.py")` or `bash("tail -50 file.py")`
 
-    You will only be able to see truncated outputs from the REPL environment, so you should use the `llm_query` function on variables you want to analyze. You will find this function especially useful when you have to analyze the semantics of code or understand complex logic.
+    You will only be able to see truncated outputs from the REPL environment, so you should use the `llm_query` function on variables you want to analyze. Use variables as buffers to build up your final answer.
 
-    Make sure to explicitly explore the codebase in REPL before making changes. An example strategy:
-    1. First look at the context to understand the issue
-    2. Use bash() to find relevant files
-    3. Use targeted bash commands (grep, head, sed) to read specific parts of files
-    4. Use llm_query() to analyze code snippets
-    5. Build up your understanding iteratively
-    6. Make targeted fixes
+    Make sure to explicitly explore the codebase in REPL before making changes. Example strategy:
+    1. First use `print()` to look at the context and understand the issue
+    2. Use `bash()` to find relevant files
+    3. Use Python regex to parse and chunk code sections
+    4. Use `llm_query()` per chunk to analyze and build up understanding in buffers
+    5. Combine insights and make targeted fixes
 
     When you want to execute Python code in the REPL environment, wrap it in triple backticks with 'repl' language identifier:
 
     ```repl
-    # Example: Explore the issue
-    print("Issue:", context["issue"][:1000])
+    # Example: Explore the issue using print statements
+    print("=" * 50)
+    print("ANALYZING ISSUE:")
+    print("=" * 50)
+    print(context["issue"])
     
-    # Find relevant files
-    files = bash("find . -name '*.py' | head -20")
-    print(files)
+    # Extract key terms from issue using regex
+    import re
+    issue_text = context["issue"]
+    
+    # Find mentioned file paths
+    file_mentions = re.findall(r'[\w/]+\.py', issue_text)
+    print(f"\nFiles mentioned in issue: {file_mentions}")
+    
+    # Find function/class names mentioned
+    names = re.findall(r'`(\w+)`', issue_text)
+    print(f"Names mentioned: {names}")
     ```
 
     ```repl
-    # Example: Read specific parts of a file
-    # First, find where the relevant code is
-    result = bash("grep -n 'class MyClass' src/module.py")
-    print(result)  # Shows line numbers
+    # Example: Parse code and analyze with sub-LLM
+    import re
     
-    # Then read just those lines
-    code_snippet = bash("sed -n '50,100p' src/module.py")
-    print(code_snippet)
+    # Get relevant code section
+    code_output = bash("grep -A 30 'def problematic_function' src/module.py")
+    print(f"Found code:\n{code_output}")
+    
+    # Use sub-LLM to analyze the code
+    analysis = llm_query(f"""Analyze this code for bugs related to the issue:
+    
+    Issue: {context['issue'][:500]}
+    
+    Code:
+    {code_output}
+    
+    What is the bug and how should it be fixed?""")
+    print(f"\nAnalysis:\n{analysis}")
     ```
 
     ```repl
-    # Example: Analyze code with sub-LLM
-    code_snippet = bash("grep -A 30 'def buggy_function' src/module.py")
+    # Example: Build up understanding with buffers
+    import re
     
-    # Use sub-LLM to understand the code
-    analysis = llm_query(f"Analyze this code and identify potential bugs related to the issue:\n\nIssue: {context['issue'][:500]}\n\nCode:\n{code_snippet}")
-    print(analysis)
+    # Find all relevant functions
+    grep_result = bash("grep -n 'def ' src/module.py")
+    print(f"Functions found:\n{grep_result}")
+    
+    # Parse the grep output to get function names and line numbers
+    functions = re.findall(r'(\d+):.*def (\w+)', grep_result)
+    print(f"\nParsed functions: {functions}")
+    
+    # Analyze each relevant function
+    buffers = []
+    for line_num, func_name in functions[:3]:  # Analyze first 3
+        code = bash(f"sed -n '{line_num},{int(line_num)+20}p' src/module.py")
+        summary = llm_query(f"What does this function do? Is there a bug?\n\n{code}")
+        buffers.append(f"{func_name}: {summary}")
+        print(f"Analyzed {func_name}")
+    
+    # Combine insights
+    combined = llm_query(f"Based on these function analyses, which one has the bug?\n\n" + "\n\n".join(buffers))
+    print(f"\nConclusion: {combined}")
     ```
 
     Remember that your sub-LLMs are powerful -- they can fit around 500K characters in their context window, so don't be afraid to put a lot of context into them.
@@ -85,23 +124,42 @@ agent:
 
     You have not interacted with the REPL environment or seen your context yet. Your next action should be to explore the codebase - don't just provide a final answer yet.
 
-    REMEMBER: Do NOT use `cat` or read entire files. Use targeted commands like `grep`, `head`, `tail`, `sed` to read only the parts you need.
+    USE PYTHON to analyze the issue:
+    - Use `print()` statements to view and debug
+    - Use `re` module to parse and extract patterns
+    - Use `llm_query()` to analyze code semantically
+    - Build up understanding in buffer variables
+    
+    Do NOT use `cat` to read entire files. Use targeted commands like `grep`, `sed`, `head`, `tail`.
 
-    Think step-by-step on what to do using the REPL environment to solve the issue. Continue using the REPL environment, which has the `context` variable (containing the issue and repo path), and query sub-LLMs by writing ```repl``` code blocks.
-
-    Start by exploring:
+    Start by exploring with Python:
 
     ```repl
+    import re
+    
     # First, understand what we're working with
     print("=" * 50)
     print("ISSUE:")
     print("=" * 50)
     print(context["issue"])
-    print("\n" + "=" * 50)
-    print("REPO PATH:", context["repo_path"])
+    
+    # Extract key information from issue
+    issue = context["issue"]
+    
+    # Find any file paths mentioned
+    files = re.findall(r'[\w/]+\.py', issue)
+    print(f"\nFiles mentioned: {files}")
+    
+    # Find any function/class names in backticks
+    names = re.findall(r'`(\w+)`', issue)
+    print(f"Names mentioned: {names}")
+    
+    # Find any error messages
+    errors = re.findall(r'Error:.*|Exception:.*|Traceback.*', issue, re.IGNORECASE)
+    print(f"Errors mentioned: {errors[:3] if errors else 'None'}")
     ```
 
-    Then explore the repository structure and find relevant files using `bash("find ...")` and `bash("grep ...")`.
+    Then explore the repository structure and find relevant files.
 
     Your next action:
     </instructions>
@@ -120,60 +178,112 @@ agent:
     3. The ability to use `print()` statements to view output and continue your reasoning
     4. Full access to Python stdlib (import os, re, json, pathlib, etc.)
 
+    IMPORTANT - USE PYTHON TO ANALYZE CONTEXT:
+    - Use `print()` statements extensively to view and debug your work
+    - Use Python `re` module to parse and extract relevant code sections
+    - Use variables as buffers to build up your understanding iteratively
+    - Parse bash output with Python to extract useful information
+    
     IMPORTANT - DO NOT READ ENTIRE FILES:
     - Do NOT use `cat` to read entire files
-    - Do NOT try to read complete file contents at once
-    - Instead, use TARGETED commands to read only what you need:
-      - `bash("head -50 file.py")` - First 50 lines
-      - `bash("tail -50 file.py")` - Last 50 lines
-      - `bash("sed -n '100,150p' file.py")` - Lines 100-150
-      - `bash("grep -n 'pattern' file.py")` - Search for pattern with line numbers
-      - `bash("grep -A 5 -B 5 'function_name' file.py")` - Pattern with context lines
+    - Instead, use TARGETED approaches:
+      - `bash("grep -n 'pattern' file.py")` - Search with line numbers
+      - `bash("grep -A 10 -B 5 'function_name' file.py")` - Pattern with context
+      - `bash("sed -n '100,150p' file.py")` - Read specific line range
+      - `bash("head -50 file.py")` or `bash("tail -50 file.py")`
 
-    Make sure to explicitly explore the codebase in REPL before making changes. An example strategy:
-    1. First look at the context to understand the issue
-    2. Use bash() to find relevant files (e.g., `bash("find . -name '*.py' | grep -i keyword")`)
-    3. Use targeted bash commands (grep, head, sed) to read specific parts of files
-    4. Analyze the code yourself and identify the bug
-    5. Make targeted fixes using write_file()
+    Make sure to explicitly explore the codebase in REPL before making changes. Example strategy:
+    1. First use `print()` to look at the context and understand the issue
+    2. Use Python regex to extract key information from the issue
+    3. Use `bash()` to find and search relevant files
+    4. Parse bash output with Python regex to understand code structure
+    5. Build up understanding in buffer variables
+    6. Make targeted fixes using write_file()
 
     When you want to execute Python code in the REPL environment, wrap it in triple backticks with 'repl' language identifier:
 
     ```repl
-    # Example: Explore the issue
-    print("Issue:", context["issue"][:1000])
+    # Example: Explore the issue using print and regex
+    import re
     
-    # Find relevant files
-    files = bash("find . -name '*.py' | head -20")
-    print(files)
-    ```
-
-    ```repl
-    # Example: Search for specific patterns
-    result = bash("grep -rn 'function_name' --include='*.py' .")
-    print(result)
-    ```
-
-    ```repl
-    # Example: Read specific lines of a file
-    # Find where the class is defined
-    bash("grep -n 'class MyClass' src/module.py")
+    print("=" * 50)
+    print("ANALYZING ISSUE:")
+    print("=" * 50)
+    print(context["issue"])
     
-    # Read lines 50-100
-    code = bash("sed -n '50,100p' src/module.py")
-    print(code)
+    # Extract key terms from issue
+    issue_text = context["issue"]
+    
+    # Find mentioned file paths
+    file_mentions = re.findall(r'[\w/]+\.py', issue_text)
+    print(f"\nFiles mentioned: {file_mentions}")
+    
+    # Find function/class names
+    names = re.findall(r'`(\w+)`', issue_text)
+    print(f"Names mentioned: {names}")
     ```
 
     ```repl
-    # Example: Make a fix - read the section, modify, write back
-    # First get the lines you need to modify
+    # Example: Parse grep output with Python
+    import re
+    
+    # Search for relevant code
+    grep_result = bash("grep -n 'def ' src/module.py")
+    print(f"Grep output:\n{grep_result}")
+    
+    # Parse to extract function names and line numbers
+    functions = re.findall(r'(\d+):.*def (\w+)', grep_result)
+    print(f"\nParsed functions: {functions}")
+    
+    # Now read specific function
+    if functions:
+        line_num = functions[0][0]
+        code = bash(f"sed -n '{line_num},{int(line_num)+15}p' src/module.py")
+        print(f"\nFunction code:\n{code}")
+    ```
+
+    ```repl
+    # Example: Build understanding with buffer variables
+    import re
+    
+    # Buffer to collect findings
+    findings = []
+    
+    # Find all classes
+    class_result = bash("grep -n 'class ' src/module.py")
+    classes = re.findall(r'(\d+):.*class (\w+)', class_result)
+    findings.append(f"Classes: {[c[1] for c in classes]}")
+    
+    # Find imports
+    import_result = bash("head -30 src/module.py")
+    imports = re.findall(r'(?:from|import) (\S+)', import_result)
+    findings.append(f"Imports: {imports}")
+    
+    # Print summary
+    print("=== FINDINGS ===")
+    for f in findings:
+        print(f)
+    ```
+
+    ```repl
+    # Example: Make a fix
+    import re
+    
+    # Read the section to modify
     original = bash("sed -n '50,60p' src/module.py")
-    print(original)
+    print(f"Original code:\n{original}")
     
-    # Read the full file for writing (only when ready to fix)
+    # When ready to fix, read full file and modify
     full_file = bash("cat src/module.py")
+    
+    # Use regex to make precise replacement
+    fixed = re.sub(r'old_pattern', 'new_pattern', full_file)
+    
+    # Or simple string replacement
     fixed = full_file.replace("old_value", "new_value")
+    
     write_file("src/module.py", fixed)
+    print("File updated!")
     ```
 
     IMPORTANT: When you are done with the iterative process, you MUST provide a final answer using one of these:
@@ -192,27 +302,41 @@ agent:
 
     You have not interacted with the REPL environment or seen your context yet. Your next action should be to explore the codebase - don't just provide a final answer yet.
 
-    REMEMBER: Do NOT use `cat` or read entire files. Use targeted commands like `grep`, `head`, `tail`, `sed` to read only the parts you need.
+    USE PYTHON to analyze the issue:
+    - Use `print()` statements to view and debug
+    - Use `re` module to parse and extract patterns from issue and bash output
+    - Build up understanding in buffer variables
+    
+    Do NOT use `cat` to read entire files. Use targeted commands like `grep`, `sed`, `head`, `tail`.
 
-    Think step-by-step on what to do using the REPL environment to solve the issue. You have access to:
-    - `context` variable (with `context['issue']` and `context['repo_path']`)
-    - `write_file(path, content)`: Write content to files
-    - `bash(cmd)`: Run shell commands (grep, find, head, tail, sed, etc.)
-    - Python stdlib (os, re, json, pathlib, etc.)
-
-    Start by exploring:
+    Start by exploring with Python:
 
     ```repl
+    import re
+    
     # First, understand what we're working with
     print("=" * 50)
     print("ISSUE:")
     print("=" * 50)
     print(context["issue"])
-    print("\n" + "=" * 50)
-    print("REPO PATH:", context["repo_path"])
+    
+    # Extract key information from issue
+    issue = context["issue"]
+    
+    # Find any file paths mentioned
+    files = re.findall(r'[\w/]+\.py', issue)
+    print(f"\nFiles mentioned: {files}")
+    
+    # Find any function/class names in backticks
+    names = re.findall(r'`(\w+)`', issue)
+    print(f"Names mentioned: {names}")
+    
+    # Find any error messages
+    errors = re.findall(r'Error:.*|Exception:.*|Traceback.*', issue, re.IGNORECASE)
+    print(f"Errors mentioned: {errors[:3] if errors else 'None'}")
     ```
 
-    Then explore the repository structure and find relevant files using `bash("find ...")` and `bash("grep ...")`.
+    Then explore the repository structure and find relevant files.
 
     Your next action:
     </instructions>
