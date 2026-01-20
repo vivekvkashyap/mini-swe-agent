@@ -282,5 +282,13 @@ class RLMAgent:
             )
 
     def get_template_vars(self) -> dict[str, Any]:
-        return self.config.model_dump()
+        """Return config for trajectory, showing only the effective templates used."""
+        config_dict = self.config.model_dump()
+        # Replace templates with only the effective ones that were actually used
+        config_dict["system_template"] = self._get_effective_system_template()
+        config_dict["instance_template"] = self._get_effective_instance_template()
+        # Remove depth-specific templates to avoid confusion
+        config_dict.pop("system_template_depth0", None)
+        config_dict.pop("instance_template_depth0", None)
+        return config_dict
 
