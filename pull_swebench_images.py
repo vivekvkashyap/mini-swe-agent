@@ -13,8 +13,21 @@ def get_docker_image_name(instance_id: str) -> str:
 def image_exists_locally(image_name: str) -> bool:
     """Check if image exists locally without querying Docker Hub."""
     try:
+        # Docker stores images without the "docker.io/" prefix
+        # So we need to check both the full name and the short name
         result = subprocess.run(
             ["docker", "images", "-q", image_name],
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+        if result.stdout.strip():
+            return True
+        
+        # Try without docker.io/ prefix
+        short_name = image_name.replace("docker.io/", "")
+        result = subprocess.run(
+            ["docker", "images", "-q", short_name],
             capture_output=True,
             text=True,
             timeout=10,
