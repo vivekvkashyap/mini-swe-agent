@@ -124,6 +124,7 @@ def process_instance(
     agent = None
     extra_info = None
     env = None
+    start_time = time.time()
 
     try:
         env = get_sb_environment(config, instance)
@@ -140,6 +141,12 @@ def process_instance(
         exit_status, result = type(e).__name__, str(e)
         extra_info = {"traceback": traceback.format_exc()}
     finally:
+        elapsed_time = time.time() - start_time
+        if extra_info is None:
+            extra_info = {}
+        extra_info["elapsed_time_seconds"] = elapsed_time
+        extra_info["elapsed_time_formatted"] = f"{elapsed_time:.2f}s"
+        
         if env and hasattr(env, "cleanup"):
             env.cleanup()
         elif env and hasattr(env, "stop"):
@@ -177,6 +184,65 @@ def filter_instances(
     return instances
 
 
+def generate_summary_report(output_dir: Path, total_time: float) -> None:
+    """Generate a summary report with costs and timing for all instances."""
+    summary = {
+        "total_instances": 0,
+        "total_cost": 0.0,
+        "total_time_seconds": total_time,
+        "total_time_formatted": f"{total_time / 3600:.2f}h" if total_time >= 3600 else f"{total_time / 60:.2f}m",
+        "instances": [],
+    }
+
+    # Collect data from trajectory files
+    for traj_file in output_dir.glob("*/*.traj.json"):
+        try:
+            traj_data = json.loads(traj_file.read_text())
+            instance_info = {
+                "instance_id": traj_data.get("instance_id", "unknown"),
+                "cost": traj_data.get("info", {}).get("model_stats", {}).get("instance_cost", 0.0),
+                "api_calls": traj_data.get("info", {}).get("model_stats", {}).get("api_calls", 0),
+                "exit_status": traj_data.get("info", {}).get("exit_status", "unknown"),
+                "elapsed_time_seconds": traj_data.get("info", {}).get("elapsed_time_seconds", 0.0),
+            }
+            summary["instances"].append(instance_info)
+            summary["total_cost"] += instance_info["cost"]
+            summary["total_instances"] += 1
+        except Exception as e:
+            logger.warning(f"Error reading trajectory file {traj_file}: {e}")
+
+    # Calculate averages
+    if summary["total_instances"] > 0:
+        summary["avg_cost_per_instance"] = summary["total_cost"] / summary["total_instances"]
+        summary["avg_time_per_instance"] = total_time / summary["total_instances"]
+    else:
+        summary["avg_cost_per_instance"] = 0.0
+        summary["avg_time_per_instance"] = 0.0
+
+    # Sort instances by cost (highest first)
+    summary["instances"] = sorted(summary["instances"], key=lambda x: x["cost"], reverse=True)
+
+    # Save summary
+    summary_path = output_dir / "summary_report.json"
+    summary_path.write_text(json.dumps(summary, indent=2))
+    logger.info(f"Summary report saved to {summary_path}")
+
+    # Print summary to console
+    logger.info("=" * 80)
+    logger.info("BATCH RUN SUMMARY")
+    logger.info("=" * 80)
+    logger.info(f"Total Instances: {summary['total_instances']}")
+    logger.info(f"Total Cost: ${summary['total_cost']:.4f}")
+    logger.info(f"Total Time: {summary['total_time_formatted']}")
+    logger.info(f"Avg Cost/Instance: ${summary['avg_cost_per_instance']:.4f}")
+    logger.info(f"Avg Time/Instance: {summary['avg_time_per_instance']:.2f}s")
+    logger.info("=" * 80)
+    logger.info("Top 5 Most Expensive Instances:")
+    for i, inst in enumerate(summary["instances"][:5], 1):
+        logger.info(f"  {i}. {inst['instance_id']}: ${inst['cost']:.4f} ({inst['elapsed_time_seconds']:.1f}s)")
+    logger.info("=" * 80)
+
+
 @app.command(help=_HELP_TEXT)
 def main(
     subset: str = typer.Option("lite", "--subset", help="SWEBench subset to use or path to a dataset"),
@@ -197,6 +263,7 @@ def main(
     ),
     environment_class: str | None = typer.Option(None, "--environment-class", help="Environment type"),
 ) -> None:
+    batch_start_time = time.time()
     output_path = Path(output) if output else Path("outputs/rlm_swebench")
     output_path.mkdir(parents=True, exist_ok=True)
     logger.info(f"Results will be saved to {output_path}")
@@ -254,6 +321,10 @@ def main(
                     if not future.running() and not future.done():
                         future.cancel()
                 process_futures(futures)
+
+    # Generate summary report
+    batch_elapsed_time = time.time() - batch_start_time
+    generate_summary_report(output_path, batch_elapsed_time)
 
 
 if __name__ == "__main__":

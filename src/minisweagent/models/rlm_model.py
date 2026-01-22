@@ -72,6 +72,14 @@ class RLMModel:
             # GPT-3.5 Turbo
             "gpt-3.5-turbo": {"input": 0.50, "output": 1.50},
             "gpt-3.5-turbo-0125": {"input": 0.50, "output": 1.50},
+            # Gemini models (via OpenAI-compatible API)
+            "gemini-2.0-flash-exp": {"input": 0.00, "output": 0.00},
+            "gemini-2.0-flash-thinking-exp": {"input": 0.00, "output": 0.00},
+            "gemini-1.5-pro": {"input": 1.25, "output": 5.00},
+            "gemini-1.5-pro-002": {"input": 1.25, "output": 5.00},
+            "gemini-1.5-flash": {"input": 0.075, "output": 0.30},
+            "gemini-1.5-flash-002": {"input": 0.075, "output": 0.30},
+            "gemini-1.5-flash-8b": {"input": 0.0375, "output": 0.15},
         }
         
         # Return pricing if found, otherwise use gpt-4o pricing as default

@@ -1,0 +1,17 @@
+{
+  "total_instances": 1,
+  "total_cost": 0.015361200000000002,
+  "total_time_seconds": 88.06433200836182,
+  "total_time_formatted": "1.47m",
+  "instances": [
+    {
+      "instance_id": "django__django-11099",
+      "cost": 0.015361200000000002,
+      "api_calls": 21,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 81.43488192558289
+    }
+  ],
+  "avg_cost_per_instance": 0.015361200000000002,
+  "avg_time_per_instance": 88.06433200836182
+}
