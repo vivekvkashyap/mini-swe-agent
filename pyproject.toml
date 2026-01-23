@@ -51,11 +51,16 @@ full = [
     "mini-swe-agent[dev]",
     "swe-rex>=1.4.0",
     "mini-swe-agent[modal]",
+    "mini-swe-agent[genai]",
 ]
 
 modal = [
     "modal",
     "boto3",
+]
+
+genai = [
+    "google-genai>=1.0.0",
 ]
 
 dev = [

@@ -50,6 +50,11 @@ def get_model(input_model_name: str | None = None, config: dict | None = None) -
     config = copy.deepcopy(config)
     config["model_name"] = resolved_model_name
 
+    # Check for provider field first
+    if provider := config.pop("provider", None):
+        model_class = get_provider_class(provider)
+        return model_class(**config)
+
     model_class = get_model_class(resolved_model_name, config.pop("model_class", ""))
 
     if (from_env := os.getenv("MSWEA_MODEL_API_KEY")) and not str(type(model_class)).endswith("DeterministicModel"):
@@ -89,6 +94,22 @@ _MODEL_CLASS_MAPPING = {
     "deterministic": "minisweagent.models.test_models.DeterministicModel",
     "rlm": "minisweagent.models.rlm_model.RLMModel",
 }
+
+_PROVIDER_MAPPING = {
+    "google-genai": "minisweagent.models.genai_model.GenaiModel",
+}
+
+
+def get_provider_class(provider: str) -> type:
+    """Get model class from provider name."""
+    full_path = _PROVIDER_MAPPING.get(provider)
+    if not full_path:
+        msg = f"Unknown provider: {provider} (available: {list(_PROVIDER_MAPPING.keys())})"
+        raise ValueError(msg)
+
+    module_name, class_name = full_path.rsplit(".", 1)
+    module = importlib.import_module(module_name)
+    return getattr(module, class_name)
 
 
 def get_model_class(model_name: str, model_class: str = "") -> type:

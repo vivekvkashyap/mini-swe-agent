@@ -5,6 +5,7 @@ preds.json
 .env
 traj.json
 .claude/**
+docs/plans/
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python

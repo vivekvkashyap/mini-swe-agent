@@ -239,45 +239,20 @@ class RLMAgent:
         return self._get_effective_instance_template().replace("{{task}}", task)
 
     def _get_continuation_prompt(self, task: str, iteration: int) -> str:
-        """Get the continuation prompt for the next iteration (similar to RLM's next_action_prompt)."""
-        issue_summary = task[:200] + "..." if len(task) > 200 else task
-
+        """Get the continuation prompt for the next iteration."""
         if self.config.depth == 0:
-            # No sub-LLM available
-            if iteration == 0:
-                return (
-                    "You have not interacted with the REPL environment or seen your context yet. "
-                    "Your next action should be to explore the codebase - don't just provide a final answer yet.\n\n"
-                    f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-                    "Continue using the REPL environment with `context`, `write_file()`, and `bash()` "
-                    "by writing ```repl``` code blocks. REMEMBER: Do NOT use `cat` to read entire files - use `grep`, `head`, `tail`, or `sed` instead.\n\n"
-                    "Your next action:"
-                )
             return (
-                "The history before is your previous interactions with the REPL environment. "
-                f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-                "Continue using the REPL environment, which has the `context` variable (with `context['issue']` and "
-                "`context['repo_path']`), and tools like `write_file()`, `bash()` by writing ```repl``` code blocks.\n"
-                "REMEMBER: Do NOT use `cat` to read entire files - use `grep`, `head`, `tail`, or `sed` instead.\n\n"
+                "Continue with the 6-phase workflow (ORIENT -> LOCATE -> ANALYZE -> "
+                "SYNTHESIZE -> FIX -> VERIFY). Use ```repl``` blocks to interact.\n\n"
+                "If you've completed the fix, run VERIFY and then output FINAL(done).\n\n"
                 "Your next action:"
             )
         else:
-            # Sub-LLM available (depth=1)
-            if iteration == 0:
-                return (
-                    "You have not interacted with the REPL environment or seen your context yet. "
-                    "Your next action should be to explore the codebase - don't just provide a final answer yet.\n\n"
-                    f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-                    "Continue using the REPL environment, which has the `context` variable, and query sub-LLMs "
-                    "by writing ```repl``` code blocks. REMEMBER: Do NOT use `cat` to read entire files - use `grep`, `head`, `tail`, or `sed` instead.\n\n"
-                    "Your next action:"
-                )
             return (
-                "The history before is your previous interactions with the REPL environment. "
-                f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-                "Continue using the REPL environment, which has the `context` variable (with `context['issue']` and "
-                "`context['repo_path']`), and query sub-LLMs using `llm_query()` by writing ```repl``` code blocks.\n"
-                "REMEMBER: Do NOT use `cat` to read entire files - use `grep`, `head`, `tail`, or `sed` instead.\n\n"
+                "Continue with the 6-phase workflow (ORIENT -> LOCATE -> ANALYZE -> "
+                "SYNTHESIZE -> FIX -> VERIFY). Use ```repl``` blocks to interact.\n\n"
+                "Remember: Use llm_query() in ANALYZE phase for Partition+Map pattern.\n"
+                "If you've completed the fix, run VERIFY and then output FINAL(done).\n\n"
                 "Your next action:"
             )
 

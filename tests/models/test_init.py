@@ -199,3 +199,54 @@ class TestGlobalModelStats:
             GlobalModelStats()
             captured = capsys.readouterr()
             assert "Global cost/call limit" not in captured.out
+
+
+class TestProviderResolution:
+    def test_provider_google_genai_returns_genai_model(self):
+        """Test that provider='google-genai' returns GenaiModel."""
+        with patch.dict(os.environ, {"GOOGLE_API_KEY": "test-key"}):
+            with patch("google.genai.Client"):
+                from minisweagent.models import get_model
+                from minisweagent.models.genai_model import GenaiModel
+
+                model = get_model(
+                    "gemini-2.5-pro",
+                    {"provider": "google-genai"},
+                )
+
+                assert isinstance(model, GenaiModel)
+                assert model.config.model_name == "gemini-2.5-pro"
+
+    def test_provider_with_provider_options(self):
+        """Test that provider_options are passed to GenaiModel."""
+        with patch.dict(os.environ, {"GOOGLE_API_KEY": "test-key"}):
+            with patch("google.genai.Client"):
+                from minisweagent.models import get_model
+                from minisweagent.models.genai_model import GenaiModel
+
+                model = get_model(
+                    "gemini-2.5-pro",
+                    {
+                        "provider": "google-genai",
+                        "provider_options": {"thinking_mode": True},
+                    },
+                )
+
+                assert isinstance(model, GenaiModel)
+                assert model.config.provider_options.thinking_mode is True
+
+    def test_no_provider_falls_back_to_model_class(self):
+        """Test that missing provider falls back to model_class logic."""
+        from minisweagent.models import get_model
+        from minisweagent.models.litellm_model import LitellmModel
+
+        model = get_model("gpt-4", {"model_class": "litellm"})
+
+        assert isinstance(model, LitellmModel)
+
+    def test_unknown_provider_raises_error(self):
+        """Test that unknown provider raises ValueError."""
+        from minisweagent.models import get_model
+
+        with pytest.raises(ValueError, match="Unknown provider"):
+            get_model("some-model", {"provider": "unknown-provider"})
