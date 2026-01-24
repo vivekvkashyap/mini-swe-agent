@@ -46,8 +46,16 @@ class SWEBenchREPLEnv:
         self.globals = self._create_safe_globals()
         self.locals = {}
 
+        # Extract all files from Docker container
+        files_content = self._extract_all_files()
+
         # Inject context and tools
-        self.globals["context"] = {"issue": issue, "repo_path": repo_path}
+        self.globals["context"] = {
+            "issue": issue,
+            "repo_path": repo_path,
+            "files": files_content,
+        }
+        self.globals["get_file"] = self._get_file
         self.globals["write_file"] = self._write_file
         self.globals["bash"] = self._bash
         self.globals["FINAL_VAR"] = self._final_var
@@ -191,6 +199,78 @@ REPL_EOF"""
         if variable_name in self.locals:
             return str(self.locals[variable_name])
         return f"Error: Variable '{variable_name}' not found in REPL environment"
+
+    def _extract_all_files(self) -> str:
+        """Extract all text files from the Docker container into a single string."""
+        # Patterns to exclude from extraction
+        exclude_patterns = [
+            ".git/", "__pycache__/", ".pyc", ".pyo", ".so", ".o", ".a",
+            ".egg-info/", ".eggs/", "node_modules/", ".tox/", ".nox/",
+            ".coverage", ".pytest_cache/", ".mypy_cache/", ".ruff_cache/",
+            ".png", ".jpg", ".jpeg", ".gif", ".ico", ".svg", ".webp",
+            ".woff", ".woff2", ".ttf", ".eot", ".otf",
+            ".pdf", ".doc", ".docx", ".xls", ".xlsx",
+            ".zip", ".tar", ".gz", ".bz2", ".xz", ".7z", ".rar",
+            ".exe", ".dll", ".bin", ".dat", ".db", ".sqlite",
+            ".mp3", ".mp4", ".avi", ".mov", ".wav", ".flac",
+            ".lock", "package-lock.json", "yarn.lock", "Cargo.lock",
+        ]
+
+        # Build find command with exclusions
+        find_cmd = f"find {self.repo_path} -type f"
+        for pattern in [".git", "__pycache__", "node_modules", ".tox", ".eggs", ".egg-info", ".pytest_cache", ".mypy_cache", ".ruff_cache"]:
+            find_cmd += f" -not -path '*/{pattern}/*'"
+
+        result = self.docker_env.execute(find_cmd)
+        if result["returncode"] != 0:
+            return f"Error listing files: {result['output']}"
+
+        file_paths = [p.strip() for p in result["output"].strip().split("\n") if p.strip()]
+
+        # Filter out binary/unwanted files by extension
+        filtered_paths = []
+        for path in file_paths:
+            skip = False
+            for pattern in exclude_patterns:
+                if pattern in path:
+                    skip = True
+                    break
+            if not skip:
+                filtered_paths.append(path)
+
+        # Extract content from each file
+        files_content = []
+        for path in filtered_paths:
+            read_result = self.docker_env.execute(f"cat '{path}' 2>/dev/null")
+            if read_result["returncode"] == 0:
+                content = read_result["output"]
+                # Skip binary files (files with null bytes or decode errors)
+                try:
+                    if "\x00" not in content:
+                        files_content.append(f"###({path})\n{content}")
+                except:
+                    pass
+
+        return "\n".join(files_content)
+
+    def _get_file(self, path: str) -> str:
+        """Get content of a specific file from the context."""
+        if not path.startswith("/"):
+            path = f"{self.repo_path}/{path}"
+        
+        files_str = self.globals["context"].get("files", "")
+        marker = f"###({path})\n"
+        
+        start_idx = files_str.find(marker)
+        if start_idx == -1:
+            return f"Error: File '{path}' not found in context"
+        
+        content_start = start_idx + len(marker)
+        # Find the next file marker or end of string
+        next_marker = files_str.find("\n###(", content_start)
+        if next_marker == -1:
+            return files_str[content_start:]
+        return files_str[content_start:next_marker]
 
     @contextmanager
     def _capture_output(self):

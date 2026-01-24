@@ -249,16 +249,15 @@ class RLMAgent:
                     "You have not interacted with the REPL environment or seen your context yet. "
                     "Your next action should be to explore the codebase - don't just provide a final answer yet.\n\n"
                     f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-                    "Continue using the REPL environment with `context`, `write_file()`, and `bash()` "
-                    "by writing ```repl``` code blocks. REMEMBER: Do NOT use `cat` to read entire files - use `grep`, `head`, `tail`, or `sed` instead.\n\n"
+                    "Continue using the REPL environment with `context[\"files\"]` (all files), `get_file()`, `write_file()`, and `bash()` "
+                    "by writing ```repl``` code blocks. Use Python string/regex ops to search files.\n\n"
                     "Your next action:"
                 )
             return (
                 "The history before is your previous interactions with the REPL environment. "
                 f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-                "Continue using the REPL environment, which has the `context` variable (with `context['issue']` and "
-                "`context['repo_path']`), and tools like `write_file()`, `bash()` by writing ```repl``` code blocks.\n"
-                "REMEMBER: Do NOT use `cat` to read entire files - use `grep`, `head`, `tail`, or `sed` instead.\n\n"
+                "Continue using the REPL environment, which has `context[\"files\"]` (all files with ###(path) format), "
+                "`get_file(path)`, `write_file()`, and `bash()` by writing ```repl``` code blocks.\n\n"
                 "Your next action:"
             )
         else:
@@ -268,16 +267,15 @@ class RLMAgent:
                     "You have not interacted with the REPL environment or seen your context yet. "
                     "Your next action should be to explore the codebase - don't just provide a final answer yet.\n\n"
                     f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-                    "Continue using the REPL environment, which has the `context` variable, and query sub-LLMs "
-                    "by writing ```repl``` code blocks. REMEMBER: Do NOT use `cat` to read entire files - use `grep`, `head`, `tail`, or `sed` instead.\n\n"
+                    "Continue using the REPL environment with `context[\"files\"]` (all files), `get_file()`, `write_file()`, "
+                    "`bash()`, and `llm_query()` by writing ```repl``` code blocks. Use Python string/regex ops to search files.\n\n"
                     "Your next action:"
                 )
             return (
                 "The history before is your previous interactions with the REPL environment. "
                 f"Think step-by-step on what to do using the REPL environment to solve the issue: \"{issue_summary}\"\n\n"
-                "Continue using the REPL environment, which has the `context` variable (with `context['issue']` and "
-                "`context['repo_path']`), and query sub-LLMs using `llm_query()` by writing ```repl``` code blocks.\n"
-                "REMEMBER: Do NOT use `cat` to read entire files - use `grep`, `head`, `tail`, or `sed` instead.\n\n"
+                "Continue using the REPL environment, which has `context[\"files\"]` (all files with ###(path) format), "
+                "`get_file(path)`, `write_file()`, `bash()`, and `llm_query()` by writing ```repl``` code blocks.\n\n"
                 "Your next action:"
             )
 
