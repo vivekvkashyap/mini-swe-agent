@@ -160,21 +160,39 @@ class SWEBenchREPLEnv:
             path = f"{self.repo_path}/{path}"
         result = self.docker_env.execute(f"cat {path}")
         if result["returncode"] != 0:
-            return f"Error reading file: {result['output']}"
+            # Raise an exception instead of returning error string
+            # This prevents agents from accidentally writing error messages as file content
+            raise FileNotFoundError(f"File not found or unreadable: {path}\n{result['output']}")
         return result["output"]
 
     def _write_file(self, path: str, content: str) -> str:
-        """Write content to a file in the Docker container."""
+        """Write content to a file in the Docker container using base64 to avoid arg length limits."""
+        import base64
+        
         if not path.startswith("/"):
             path = f"{self.repo_path}/{path}"
 
-        # Escape content for bash heredoc
-        escaped_content = content.replace("\\", "\\\\").replace("$", "\\$").replace("`", "\\`")
-
-        cmd = f"""cat > {path} << 'REPL_EOF'
-{content}
-REPL_EOF"""
-        result = self.docker_env.execute(cmd)
+        # Encode content as base64 to avoid shell escaping issues and arg length limits
+        encoded = base64.b64encode(content.encode('utf-8')).decode('ascii')
+        
+        # Use echo with base64 decode - this avoids the "argument list too long" error
+        # Split into chunks if very large (base64 can be passed via stdin)
+        cmd = f"echo '{encoded}' | base64 -d > {path}"
+        
+        # For very large files, use a different approach with stdin
+        if len(encoded) > 100000:  # ~75KB of original content
+            # Write via python inside Docker to handle large content
+            cmd = f"""python3 -c "
+import base64
+import sys
+content = base64.b64decode(sys.stdin.read().strip())
+with open('{path}', 'wb') as f:
+    f.write(content)
+" << 'B64EOF'
+{encoded}
+B64EOF"""
+        
+        result = self.docker_env.execute(cmd, timeout=60)
         if result["returncode"] != 0:
             return f"Error writing file: {result['output']}"
         return f"Successfully wrote to {path}"
@@ -201,60 +219,109 @@ REPL_EOF"""
         return f"Error: Variable '{variable_name}' not found in REPL environment"
 
     def _extract_all_files(self) -> str:
-        """Extract all text files from the Docker container into a single string."""
-        # Patterns to exclude from extraction
-        exclude_patterns = [
-            ".git/", "__pycache__/", ".pyc", ".pyo", ".so", ".o", ".a",
-            ".egg-info/", ".eggs/", "node_modules/", ".tox/", ".nox/",
-            ".coverage", ".pytest_cache/", ".mypy_cache/", ".ruff_cache/",
-            ".png", ".jpg", ".jpeg", ".gif", ".ico", ".svg", ".webp",
-            ".woff", ".woff2", ".ttf", ".eot", ".otf",
-            ".pdf", ".doc", ".docx", ".xls", ".xlsx",
-            ".zip", ".tar", ".gz", ".bz2", ".xz", ".7z", ".rar",
-            ".exe", ".dll", ".bin", ".dat", ".db", ".sqlite",
-            ".mp3", ".mp4", ".avi", ".mov", ".wav", ".flac",
-            ".lock", "package-lock.json", "yarn.lock", "Cargo.lock",
-        ]
+        """Extract all text files from the Docker container into a single string using a single command."""
+        # Build exclusion patterns for find - use double quotes to avoid heredoc conflicts
+        exclude_dirs = [".git", "__pycache__", "node_modules", ".tox", ".nox", ".eggs", ".egg-info", 
+                       ".pytest_cache", ".mypy_cache", ".ruff_cache", ".coverage"]
+        
+        exclude_extensions = [".pyc", ".pyo", ".so", ".o", ".a", ".png", ".jpg", ".jpeg", ".gif", 
+                            ".ico", ".svg", ".webp", ".woff", ".woff2", ".ttf", ".eot", ".otf",
+                            ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".zip", ".tar", ".gz", 
+                            ".bz2", ".xz", ".7z", ".rar", ".exe", ".dll", ".bin", ".dat", 
+                            ".db", ".sqlite", ".mp3", ".mp4", ".avi", ".mov", ".wav", ".flac"]
+        
+        exclude_files = ["package-lock.json", "yarn.lock", "Cargo.lock", ".coverage"]
+        
+        # Build find command with all exclusions - use double quotes
+        find_parts = [f"find {self.repo_path} -type f"]
+        
+        # Exclude directories
+        for dir_name in exclude_dirs:
+            find_parts.append(f'-not -path "*/{dir_name}/*"')
+        
+        # Exclude by extension
+        for ext in exclude_extensions:
+            find_parts.append(f'-not -name "*{ext}"')
+        
+        # Exclude specific files
+        for fname in exclude_files:
+            find_parts.append(f'-not -name "{fname}"')
+        
+        find_cmd = " ".join(find_parts)
+        
+        # Use Python script inside Docker - avoid heredoc issues by using a simpler approach
+        # Write Python as a single command line to avoid quote escaping issues
+        script = f"""python3 -c "
+import subprocess
+import sys
 
-        # Build find command with exclusions
-        find_cmd = f"find {self.repo_path} -type f"
-        for pattern in [".git", "__pycache__", "node_modules", ".tox", ".eggs", ".egg-info", ".pytest_cache", ".mypy_cache", ".ruff_cache"]:
-            find_cmd += f" -not -path '*/{pattern}/*'"
+find_cmd = '''{find_cmd}'''
+result = subprocess.run(find_cmd, shell=True, capture_output=True, text=True)
+file_paths = [p.strip() for p in result.stdout.strip().split(chr(10)) if p.strip()]
 
-        result = self.docker_env.execute(find_cmd)
+for fpath in file_paths:
+    try:
+        with open(fpath, 'r', encoding='utf-8', errors='ignore') as f:
+            content = f.read()
+            if chr(0) not in content:
+                print('###(' + fpath + ')')
+                print(content)
+    except Exception:
+        pass
+"
+"""
+        
+        result = self.docker_env.execute(script, timeout=300)
         if result["returncode"] != 0:
-            return f"Error listing files: {result['output']}"
+            # Log the error for debugging
+            import logging
+            logging.getLogger("minisweagent.repl_env").warning(
+                f"File extraction failed with return code {result['returncode']}: {result.get('output', '')[:500]}"
+            )
+            # Fallback: try a simpler approach
+            return self._extract_all_files_simple()
+        
+        # Check if output is suspiciously empty or small
+        if len(result["output"]) < 100:
+            import logging
+            logging.getLogger("minisweagent.repl_env").warning(
+                f"File extraction returned suspiciously small output ({len(result['output'])} chars), trying simpler method"
+            )
+            return self._extract_all_files_simple()
+        
+        return result["output"]
 
-        file_paths = [p.strip() for p in result["output"].strip().split("\n") if p.strip()]
-
-        # Filter out binary/unwanted files by extension
-        filtered_paths = []
-        for path in file_paths:
-            skip = False
-            for pattern in exclude_patterns:
-                if pattern in path:
-                    skip = True
-                    break
-            if not skip:
-                filtered_paths.append(path)
-
-        # Extract content from each file
-        files_content = []
-        for path in filtered_paths:
-            read_result = self.docker_env.execute(f"cat '{path}' 2>/dev/null")
-            if read_result["returncode"] == 0:
-                content = read_result["output"]
-                # Skip binary files (files with null bytes or decode errors)
-                try:
-                    if "\x00" not in content:
-                        files_content.append(f"###({path})\n{content}")
-                except:
-                    pass
-
-        return "\n".join(files_content)
+    def _extract_all_files_simple(self) -> str:
+        """Fallback method: extract files using simpler shell commands."""
+        import logging
+        logger = logging.getLogger("minisweagent.repl_env")
+        
+        # Simple approach: find Python files and cat them with markers
+        script = f"""
+cd {self.repo_path}
+find . -type f \\( -name "*.py" -o -name "*.txt" -o -name "*.md" -o -name "*.rst" -o -name "*.yaml" -o -name "*.yml" -o -name "*.json" -o -name "*.toml" -o -name "*.cfg" -o -name "*.ini" \\) \
+    -not -path "*/.git/*" \
+    -not -path "*/__pycache__/*" \
+    -not -path "*/node_modules/*" \
+    -not -path "*/.tox/*" \
+    -not -path "*/.eggs/*" \
+    -not -name "*.pyc" \
+    2>/dev/null | head -2000 | while read -r file; do
+    echo "###({self.repo_path}/${{file#./}})"
+    cat "$file" 2>/dev/null || true
+done
+"""
+        result = self.docker_env.execute(script, timeout=300)
+        if result["returncode"] != 0:
+            logger.error(f"Simple file extraction also failed: {result.get('output', '')[:200]}")
+            return ""
+        
+        output = result.get("output", "")
+        logger.info(f"Simple extraction returned {len(output)} chars")
+        return output
 
     def _get_file(self, path: str) -> str:
-        """Get content of a specific file from the context."""
+        """Get content of a specific file from the context, with fallback to Docker."""
         if not path.startswith("/"):
             path = f"{self.repo_path}/{path}"
         
@@ -263,7 +330,13 @@ REPL_EOF"""
         
         start_idx = files_str.find(marker)
         if start_idx == -1:
-            return f"Error: File '{path}' not found in context"
+            # Fallback: try to read directly from Docker
+            # _read_file raises FileNotFoundError if file doesn't exist
+            try:
+                return self._read_file(path)
+            except FileNotFoundError as e:
+                # Return a clear error message that looks like an error, not file content
+                raise FileNotFoundError(f"FILE NOT FOUND: {path}") from e
         
         content_start = start_idx + len(marker)
         # Find the next file marker or end of string

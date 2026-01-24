@@ -1,0 +1,31 @@
+{
+  "total_instances": 3,
+  "total_cost": 0.08614625,
+  "total_time_seconds": 315.1561858654022,
+  "total_time_formatted": "5.25m",
+  "instances": [
+    {
+      "instance_id": "django__django-11099",
+      "cost": 0.042382500000000004,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 95.99578547477722
+    },
+    {
+      "instance_id": "django__django-11049",
+      "cost": 0.02318875,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 133.12188148498535
+    },
+    {
+      "instance_id": "django__django-11039",
+      "cost": 0.020575,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 79.15014672279358
+    }
+  ],
+  "avg_cost_per_instance": 0.028715416666666663,
+  "avg_time_per_instance": 105.05206195513408
+}
