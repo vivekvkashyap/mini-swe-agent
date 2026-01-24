@@ -1,0 +1,2110 @@
+{
+  "total_instances": 300,
+  "total_cost": 23.90843125,
+  "total_time_seconds": 37053.82804250717,
+  "total_time_formatted": "10.29h",
+  "instances": [
+    {
+      "instance_id": "sympy__sympy-11870",
+      "cost": 0.9169887500000001,
+      "api_calls": 35,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 204.6509988307953
+    },
+    {
+      "instance_id": "pytest-dev__pytest-9359",
+      "cost": 0.7490100000000001,
+      "api_calls": 28,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 244.42456793785095
+    },
+    {
+      "instance_id": "sympy__sympy-22840",
+      "cost": 0.5157012500000001,
+      "api_calls": 28,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 116.21407413482666
+    },
+    {
+      "instance_id": "sympy__sympy-15346",
+      "cost": 0.49517,
+      "api_calls": 19,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 205.0893678665161
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25079",
+      "cost": 0.48401625,
+      "api_calls": 21,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 295.70997166633606
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-24334",
+      "cost": 0.47673125000000005,
+      "api_calls": 26,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 219.38486790657043
+    },
+    {
+      "instance_id": "sympy__sympy-18621",
+      "cost": 0.39063125,
+      "api_calls": 24,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 303.90214586257935
+    },
+    {
+      "instance_id": "pydata__xarray-4094",
+      "cost": 0.37514749999999997,
+      "api_calls": 20,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 238.39866018295288
+    },
+    {
+      "instance_id": "django__django-16910",
+      "cost": 0.37260375,
+      "api_calls": 27,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 135.92770767211914
+    },
+    {
+      "instance_id": "sympy__sympy-15345",
+      "cost": 0.36277125000000005,
+      "api_calls": 15,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 210.19988107681274
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-10325",
+      "cost": 0.34365875,
+      "api_calls": 12,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 190.72395825386047
+    },
+    {
+      "instance_id": "django__django-11039",
+      "cost": 0.3162825,
+      "api_calls": 21,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 240.06779026985168
+    },
+    {
+      "instance_id": "django__django-16820",
+      "cost": 0.29721375,
+      "api_calls": 19,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 157.9362587928772
+    },
+    {
+      "instance_id": "pallets__flask-4045",
+      "cost": 0.2946975,
+      "api_calls": 22,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 145.86507201194763
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-25570",
+      "cost": 0.28926875,
+      "api_calls": 17,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 113.44254350662231
+    },
+    {
+      "instance_id": "sympy__sympy-20322",
+      "cost": 0.26875875,
+      "api_calls": 12,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 168.6719195842743
+    },
+    {
+      "instance_id": "django__django-14999",
+      "cost": 0.25517875,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 154.63293433189392
+    },
+    {
+      "instance_id": "sympy__sympy-24102",
+      "cost": 0.24661750000000002,
+      "api_calls": 13,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 147.58963131904602
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14092",
+      "cost": 0.24094750000000004,
+      "api_calls": 9,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 125.38713264465332
+    },
+    {
+      "instance_id": "sympy__sympy-23262",
+      "cost": 0.235535,
+      "api_calls": 26,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 508.2686667442322
+    },
+    {
+      "instance_id": "sympy__sympy-19487",
+      "cost": 0.2146275,
+      "api_calls": 16,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 86.86860752105713
+    },
+    {
+      "instance_id": "sympy__sympy-19254",
+      "cost": 0.21399125,
+      "api_calls": 14,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 122.38269591331482
+    },
+    {
+      "instance_id": "sympy__sympy-21847",
+      "cost": 0.21114375000000002,
+      "api_calls": 16,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 222.75579166412354
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5221",
+      "cost": 0.202095,
+      "api_calls": 17,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 110.13028073310852
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23562",
+      "cost": 0.20044,
+      "api_calls": 15,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 215.28295516967773
+    },
+    {
+      "instance_id": "django__django-12856",
+      "cost": 0.19201124999999997,
+      "api_calls": 16,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 170.23616862297058
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5413",
+      "cost": 0.17973125,
+      "api_calls": 15,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 139.804279088974
+    },
+    {
+      "instance_id": "sympy__sympy-12481",
+      "cost": 0.1795,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 150.7461006641388
+    },
+    {
+      "instance_id": "astropy__astropy-12907",
+      "cost": 0.1753225,
+      "api_calls": 13,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 118.9194917678833
+    },
+    {
+      "instance_id": "django__django-11133",
+      "cost": 0.16976125,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 154.11346769332886
+    },
+    {
+      "instance_id": "django__django-17051",
+      "cost": 0.16656125000000002,
+      "api_calls": 17,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 161.44158792495728
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25442",
+      "cost": 0.16563125,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 90.01182579994202
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25332",
+      "cost": 0.158305,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 145.64875960350037
+    },
+    {
+      "instance_id": "django__django-15902",
+      "cost": 0.155005,
+      "api_calls": 9,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 120.64713382720947
+    },
+    {
+      "instance_id": "django__django-12589",
+      "cost": 0.14348625,
+      "api_calls": 13,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 214.75368523597717
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-11281",
+      "cost": 0.13876875,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 110.17406153678894
+    },
+    {
+      "instance_id": "django__django-12284",
+      "cost": 0.13672374999999998,
+      "api_calls": 15,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 245.87866711616516
+    },
+    {
+      "instance_id": "django__django-12908",
+      "cost": 0.13588125,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 70.41684079170227
+    },
+    {
+      "instance_id": "sympy__sympy-16503",
+      "cost": 0.13455,
+      "api_calls": 14,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 298.99381732940674
+    },
+    {
+      "instance_id": "sympy__sympy-24152",
+      "cost": 0.12952,
+      "api_calls": 12,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 85.77428269386292
+    },
+    {
+      "instance_id": "django__django-13158",
+      "cost": 0.12862375,
+      "api_calls": 12,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 133.0515661239624
+    },
+    {
+      "instance_id": "django__django-12286",
+      "cost": 0.12753124999999998,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 110.72670412063599
+    },
+    {
+      "instance_id": "django__django-16041",
+      "cost": 0.1266475,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 157.01101756095886
+    },
+    {
+      "instance_id": "django__django-11019",
+      "cost": 0.12447875,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 269.8553054332733
+    },
+    {
+      "instance_id": "sympy__sympy-20590",
+      "cost": 0.12426999999999999,
+      "api_calls": 14,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 157.34323382377625
+    },
+    {
+      "instance_id": "sympy__sympy-18698",
+      "cost": 0.12153,
+      "api_calls": 9,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 431.22966408729553
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23314",
+      "cost": 0.12088750000000001,
+      "api_calls": 13,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 277.3663384914398
+    },
+    {
+      "instance_id": "sympy__sympy-18199",
+      "cost": 0.11965375,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 171.98965001106262
+    },
+    {
+      "instance_id": "pydata__xarray-4493",
+      "cost": 0.11679375,
+      "api_calls": 14,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 215.16863870620728
+    },
+    {
+      "instance_id": "sympy__sympy-13915",
+      "cost": 0.11201249999999999,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 379.79163908958435
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-10451",
+      "cost": 0.11186375,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 105.44738125801086
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13241",
+      "cost": 0.10289999999999999,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 155.2872405052185
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-25500",
+      "cost": 0.10187625,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 100.75719285011292
+    },
+    {
+      "instance_id": "sympy__sympy-21612",
+      "cost": 0.10073125,
+      "api_calls": 9,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 93.32315635681152
+    },
+    {
+      "instance_id": "django__django-11630",
+      "cost": 0.10041499999999999,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 119.12372612953186
+    },
+    {
+      "instance_id": "django__django-13710",
+      "cost": 0.09896375,
+      "api_calls": 12,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 169.96951460838318
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-7975",
+      "cost": 0.09788749999999999,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 104.98691916465759
+    },
+    {
+      "instance_id": "django__django-13757",
+      "cost": 0.0975825,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 90.69319534301758
+    },
+    {
+      "instance_id": "sympy__sympy-12419",
+      "cost": 0.09724250000000001,
+      "api_calls": 12,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 191.77404928207397
+    },
+    {
+      "instance_id": "sympy__sympy-13971",
+      "cost": 0.09555125,
+      "api_calls": 12,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 140.25294971466064
+    },
+    {
+      "instance_id": "django__django-13590",
+      "cost": 0.09516625,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 77.73266005516052
+    },
+    {
+      "instance_id": "psf__requests-2148",
+      "cost": 0.09361375000000001,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 155.0221405029297
+    },
+    {
+      "instance_id": "sympy__sympy-24066",
+      "cost": 0.09347749999999999,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 81.92933201789856
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14087",
+      "cost": 0.09298875000000001,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 163.02428364753723
+    },
+    {
+      "instance_id": "sympy__sympy-17655",
+      "cost": 0.09160125,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 128.47538328170776
+    },
+    {
+      "instance_id": "django__django-12470",
+      "cost": 0.09130749999999999,
+      "api_calls": 11,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 368.27372550964355
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7490",
+      "cost": 0.091075,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 212.4040892124176
+    },
+    {
+      "instance_id": "django__django-13401",
+      "cost": 0.09051250000000001,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 146.24091935157776
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-12471",
+      "cost": 0.0894725,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 174.09056973457336
+    },
+    {
+      "instance_id": "django__django-16873",
+      "cost": 0.08752125000000001,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 167.29611206054688
+    },
+    {
+      "instance_id": "pylint-dev__pylint-7993",
+      "cost": 0.0873175,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 153.73326706886292
+    },
+    {
+      "instance_id": "astropy__astropy-14182",
+      "cost": 0.0867675,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 67.79670691490173
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8273",
+      "cost": 0.0865925,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 81.02275800704956
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-7686",
+      "cost": 0.086355,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 149.3243386745453
+    },
+    {
+      "instance_id": "django__django-14238",
+      "cost": 0.08559,
+      "api_calls": 9,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 169.41788125038147
+    },
+    {
+      "instance_id": "django__django-11001",
+      "cost": 0.0846825,
+      "api_calls": 9,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 100.76705861091614
+    },
+    {
+      "instance_id": "django__django-15202",
+      "cost": 0.0842975,
+      "api_calls": 11,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 55.85213327407837
+    },
+    {
+      "instance_id": "django__django-11564",
+      "cost": 0.083475,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 173.27036333084106
+    },
+    {
+      "instance_id": "sympy__sympy-24909",
+      "cost": 0.08303625,
+      "api_calls": 9,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 222.7349636554718
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-11445",
+      "cost": 0.0827475,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 84.75541090965271
+    },
+    {
+      "instance_id": "django__django-16527",
+      "cost": 0.08250625,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 169.58826231956482
+    },
+    {
+      "instance_id": "django__django-11964",
+      "cost": 0.08055625000000001,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 109.3066394329071
+    },
+    {
+      "instance_id": "sympy__sympy-16281",
+      "cost": 0.07878875,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 132.13956379890442
+    },
+    {
+      "instance_id": "django__django-15400",
+      "cost": 0.07859374999999999,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 113.11420202255249
+    },
+    {
+      "instance_id": "django__django-11742",
+      "cost": 0.0772825,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 188.40861320495605
+    },
+    {
+      "instance_id": "django__django-11049",
+      "cost": 0.0772525,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 138.44087481498718
+    },
+    {
+      "instance_id": "pytest-dev__pytest-8365",
+      "cost": 0.07680875000000001,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 101.91849184036255
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8627",
+      "cost": 0.07672999999999999,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 363.4943256378174
+    },
+    {
+      "instance_id": "django__django-13315",
+      "cost": 0.076215,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 143.04383826255798
+    },
+    {
+      "instance_id": "sympy__sympy-13773",
+      "cost": 0.07533000000000001,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 209.25127506256104
+    },
+    {
+      "instance_id": "django__django-14411",
+      "cost": 0.07461625000000001,
+      "api_calls": 10,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 104.89408683776855
+    },
+    {
+      "instance_id": "django__django-17087",
+      "cost": 0.07333250000000001,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 157.49625420570374
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14894",
+      "cost": 0.07227375,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 417.53425788879395
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7220",
+      "cost": 0.07183875,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 206.97969317436218
+    },
+    {
+      "instance_id": "django__django-13448",
+      "cost": 0.0709375,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 145.87064266204834
+    },
+    {
+      "instance_id": "sympy__sympy-15609",
+      "cost": 0.07088875000000001,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 72.78512358665466
+    },
+    {
+      "instance_id": "pydata__xarray-5131",
+      "cost": 0.06975125,
+      "api_calls": 9,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 151.98538255691528
+    },
+    {
+      "instance_id": "django__django-12308",
+      "cost": 0.0688175,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 153.53203058242798
+    },
+    {
+      "instance_id": "astropy__astropy-14365",
+      "cost": 0.06816,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 94.1799066066742
+    },
+    {
+      "instance_id": "sympy__sympy-18057",
+      "cost": 0.06750875,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 223.61472868919373
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5692",
+      "cost": 0.067365,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 76.20145201683044
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8474",
+      "cost": 0.06636,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 61.475037813186646
+    },
+    {
+      "instance_id": "django__django-14016",
+      "cost": 0.06600874999999999,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 63.77168130874634
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13496",
+      "cost": 0.0659775,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 138.79098892211914
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-10949",
+      "cost": 0.06564875,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 135.38590240478516
+    },
+    {
+      "instance_id": "django__django-16400",
+      "cost": 0.06472249999999999,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 236.09649443626404
+    },
+    {
+      "instance_id": "django__django-14608",
+      "cost": 0.06440125,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 105.74609589576721
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13584",
+      "cost": 0.0642125,
+      "api_calls": 9,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 138.501877784729
+    },
+    {
+      "instance_id": "sympy__sympy-12171",
+      "cost": 0.06373124999999999,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 66.53847002983093
+    },
+    {
+      "instance_id": "pallets__flask-5063",
+      "cost": 0.06369375,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 116.74173665046692
+    },
+    {
+      "instance_id": "sympy__sympy-21055",
+      "cost": 0.06350125000000001,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 52.61442756652832
+    },
+    {
+      "instance_id": "django__django-13033",
+      "cost": 0.06342375,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 238.70043349266052
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23913",
+      "cost": 0.0619825,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 100.70207691192627
+    },
+    {
+      "instance_id": "django__django-13265",
+      "cost": 0.061413749999999996,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 109.69061064720154
+    },
+    {
+      "instance_id": "django__django-15781",
+      "cost": 0.061007500000000006,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 80.71004796028137
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7373",
+      "cost": 0.0597675,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 73.43576717376709
+    },
+    {
+      "instance_id": "sympy__sympy-22005",
+      "cost": 0.0593625,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 117.49286556243896
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5495",
+      "cost": 0.0584575,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 202.16731333732605
+    },
+    {
+      "instance_id": "astropy__astropy-7746",
+      "cost": 0.057495000000000004,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 145.15973448753357
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8595",
+      "cost": 0.0574525,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 112.52167868614197
+    },
+    {
+      "instance_id": "sympy__sympy-17022",
+      "cost": 0.05645375,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 108.1512382030487
+    },
+    {
+      "instance_id": "django__django-15851",
+      "cost": 0.05624875,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 135.29439878463745
+    },
+    {
+      "instance_id": "django__django-11422",
+      "cost": 0.05600125,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 167.42109513282776
+    },
+    {
+      "instance_id": "django__django-12708",
+      "cost": 0.05574125,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 169.40062165260315
+    },
+    {
+      "instance_id": "django__django-12983",
+      "cost": 0.055220000000000005,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 88.38047218322754
+    },
+    {
+      "instance_id": "sympy__sympy-23191",
+      "cost": 0.05509,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 77.4679114818573
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8506",
+      "cost": 0.05501,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 137.39641070365906
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11143",
+      "cost": 0.053762500000000005,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 112.23032784461975
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13497",
+      "cost": 0.052375,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 106.88154745101929
+    },
+    {
+      "instance_id": "pylint-dev__pylint-7114",
+      "cost": 0.05226,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 221.5132303237915
+    },
+    {
+      "instance_id": "django__django-11283",
+      "cost": 0.05188375,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 55.80852699279785
+    },
+    {
+      "instance_id": "django__django-11815",
+      "cost": 0.05164,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 131.1885039806366
+    },
+    {
+      "instance_id": "django__django-13551",
+      "cost": 0.049805,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 137.02549171447754
+    },
+    {
+      "instance_id": "django__django-15320",
+      "cost": 0.04978375,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 92.88295412063599
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5103",
+      "cost": 0.04948,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 63.03142857551575
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25311",
+      "cost": 0.04913875,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 121.0040283203125
+    },
+    {
+      "instance_id": "django__django-13925",
+      "cost": 0.0486025,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 58.535478591918945
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11148",
+      "cost": 0.048328750000000004,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 181.0292809009552
+    },
+    {
+      "instance_id": "django__django-13028",
+      "cost": 0.04800625,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 81.71199774742126
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8713",
+      "cost": 0.04767125,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 89.69481134414673
+    },
+    {
+      "instance_id": "django__django-16255",
+      "cost": 0.04715875,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 87.59036874771118
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-10297",
+      "cost": 0.04702875,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 141.02621722221375
+    },
+    {
+      "instance_id": "sympy__sympy-18835",
+      "cost": 0.046939999999999996,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 43.378002405166626
+    },
+    {
+      "instance_id": "pylint-dev__pylint-7080",
+      "cost": 0.0469175,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 35.48190522193909
+    },
+    {
+      "instance_id": "sympy__sympy-21379",
+      "cost": 0.0469025,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 174.4299807548523
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-15512",
+      "cost": 0.04688625,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 135.31352281570435
+    },
+    {
+      "instance_id": "django__django-16595",
+      "cost": 0.046865000000000004,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 95.07645750045776
+    },
+    {
+      "instance_id": "django__django-13964",
+      "cost": 0.04684125,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 273.1334345340729
+    },
+    {
+      "instance_id": "django__django-14787",
+      "cost": 0.046770000000000006,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 94.19840049743652
+    },
+    {
+      "instance_id": "sympy__sympy-14308",
+      "cost": 0.046456250000000004,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 186.70272588729858
+    },
+    {
+      "instance_id": "pytest-dev__pytest-8906",
+      "cost": 0.04637625,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 121.6057448387146
+    },
+    {
+      "instance_id": "django__django-16816",
+      "cost": 0.04599125,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 135.13236808776855
+    },
+    {
+      "instance_id": "sympy__sympy-20154",
+      "cost": 0.045295,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 93.49044513702393
+    },
+    {
+      "instance_id": "django__django-13321",
+      "cost": 0.0448075,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 57.83435130119324
+    },
+    {
+      "instance_id": "django__django-15061",
+      "cost": 0.04436999999999999,
+      "api_calls": 8,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 125.24991226196289
+    },
+    {
+      "instance_id": "django__django-11620",
+      "cost": 0.04423375,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 271.1174442768097
+    },
+    {
+      "instance_id": "astropy__astropy-14995",
+      "cost": 0.044067499999999996,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 166.23142910003662
+    },
+    {
+      "instance_id": "sympy__sympy-20639",
+      "cost": 0.04396375,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 117.51668572425842
+    },
+    {
+      "instance_id": "django__django-16379",
+      "cost": 0.043956249999999995,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 52.864147901535034
+    },
+    {
+      "instance_id": "django__django-12497",
+      "cost": 0.043278750000000005,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 122.88418292999268
+    },
+    {
+      "instance_id": "sympy__sympy-12454",
+      "cost": 0.04314875,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 70.8978750705719
+    },
+    {
+      "instance_id": "psf__requests-3362",
+      "cost": 0.04239875,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 263.4607844352722
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8435",
+      "cost": 0.042339999999999996,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 144.03227496147156
+    },
+    {
+      "instance_id": "pydata__xarray-4248",
+      "cost": 0.0418625,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 124.18044137954712
+    },
+    {
+      "instance_id": "django__django-12184",
+      "cost": 0.04172125,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 54.936915159225464
+    },
+    {
+      "instance_id": "psf__requests-2674",
+      "cost": 0.041554999999999995,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 122.81374311447144
+    },
+    {
+      "instance_id": "sympy__sympy-15678",
+      "cost": 0.04087625,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 150.66903018951416
+    },
+    {
+      "instance_id": "django__django-14752",
+      "cost": 0.040859999999999994,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 37.27568173408508
+    },
+    {
+      "instance_id": "django__django-14730",
+      "cost": 0.0408525,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 120.07803988456726
+    },
+    {
+      "instance_id": "sympy__sympy-13146",
+      "cost": 0.0407675,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 183.55862832069397
+    },
+    {
+      "instance_id": "sympy__sympy-13471",
+      "cost": 0.04032,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 114.89937329292297
+    },
+    {
+      "instance_id": "django__django-14915",
+      "cost": 0.0394575,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 73.8876428604126
+    },
+    {
+      "instance_id": "django__django-14855",
+      "cost": 0.039258749999999995,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 100.60182809829712
+    },
+    {
+      "instance_id": "django__django-13220",
+      "cost": 0.0391675,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 133.87295722961426
+    },
+    {
+      "instance_id": "django__django-14155",
+      "cost": 0.039150000000000004,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 120.14630675315857
+    },
+    {
+      "instance_id": "django__django-13660",
+      "cost": 0.039008749999999995,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 41.86319661140442
+    },
+    {
+      "instance_id": "django__django-12747",
+      "cost": 0.03845125,
+      "api_calls": 7,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 195.9343192577362
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13142",
+      "cost": 0.03821624999999999,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 155.52926063537598
+    },
+    {
+      "instance_id": "django__django-15789",
+      "cost": 0.038099999999999995,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 103.23766851425171
+    },
+    {
+      "instance_id": "django__django-11848",
+      "cost": 0.0380475,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 140.40686535835266
+    },
+    {
+      "instance_id": "django__django-15814",
+      "cost": 0.03790875,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 97.39209389686584
+    },
+    {
+      "instance_id": "sympy__sympy-17139",
+      "cost": 0.037512500000000004,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 82.8687629699707
+    },
+    {
+      "instance_id": "django__django-14672",
+      "cost": 0.037255,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 43.4742910861969
+    },
+    {
+      "instance_id": "sympy__sympy-18532",
+      "cost": 0.03698625,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 129.996808052063
+    },
+    {
+      "instance_id": "django__django-12113",
+      "cost": 0.03615875,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 58.855926275253296
+    },
+    {
+      "instance_id": "django__django-15347",
+      "cost": 0.036063750000000006,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 40.92426586151123
+    },
+    {
+      "instance_id": "pallets__flask-4992",
+      "cost": 0.0357725,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 37.466150999069214
+    },
+    {
+      "instance_id": "django__django-14997",
+      "cost": 0.035655,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 186.36576437950134
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23964",
+      "cost": 0.035390000000000005,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 48.37617325782776
+    },
+    {
+      "instance_id": "django__django-16408",
+      "cost": 0.03518625,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 44.30570936203003
+    },
+    {
+      "instance_id": "sympy__sympy-20442",
+      "cost": 0.035182500000000005,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 164.42935037612915
+    },
+    {
+      "instance_id": "sympy__sympy-21614",
+      "cost": 0.035175,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 65.43441772460938
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7168",
+      "cost": 0.03494625,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 50.85726571083069
+    },
+    {
+      "instance_id": "psf__requests-863",
+      "cost": 0.03493375,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 35.33552837371826
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23987",
+      "cost": 0.0349325,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 160.10063314437866
+    },
+    {
+      "instance_id": "sympy__sympy-12236",
+      "cost": 0.0347675,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 188.1916491985321
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14983",
+      "cost": 0.034754999999999994,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 127.39340615272522
+    },
+    {
+      "instance_id": "django__django-11905",
+      "cost": 0.034016250000000005,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 98.389967918396
+    },
+    {
+      "instance_id": "sympy__sympy-21627",
+      "cost": 0.033530000000000004,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 178.60884404182434
+    },
+    {
+      "instance_id": "django__django-11099",
+      "cost": 0.0333525,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 34.650322675704956
+    },
+    {
+      "instance_id": "mwaskom__seaborn-3190",
+      "cost": 0.033315000000000004,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 112.21323919296265
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7432",
+      "cost": 0.03324375,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 123.99724984169006
+    },
+    {
+      "instance_id": "django__django-11179",
+      "cost": 0.0332075,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 70.00538420677185
+    },
+    {
+      "instance_id": "django__django-15738",
+      "cost": 0.032885,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 124.1452112197876
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-24149",
+      "cost": 0.032740000000000005,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 83.50755262374878
+    },
+    {
+      "instance_id": "django__django-13230",
+      "cost": 0.03273125,
+      "api_calls": 6,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 100.37535095214844
+    },
+    {
+      "instance_id": "pydata__xarray-3364",
+      "cost": 0.03256125,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 130.92713928222656
+    },
+    {
+      "instance_id": "sympy__sympy-13480",
+      "cost": 0.032543749999999996,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 40.95420503616333
+    },
+    {
+      "instance_id": "django__django-13933",
+      "cost": 0.0324075,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 93.63534307479858
+    },
+    {
+      "instance_id": "django__django-13658",
+      "cost": 0.03228125,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 112.20391869544983
+    },
+    {
+      "instance_id": "sympy__sympy-18087",
+      "cost": 0.032275000000000005,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 145.94453859329224
+    },
+    {
+      "instance_id": "django__django-13768",
+      "cost": 0.0322575,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 61.91883444786072
+    },
+    {
+      "instance_id": "sympy__sympy-14317",
+      "cost": 0.032136250000000005,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 207.2307367324829
+    },
+    {
+      "instance_id": "sympy__sympy-13031",
+      "cost": 0.032025,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 145.60466957092285
+    },
+    {
+      "instance_id": "sympy__sympy-15011",
+      "cost": 0.03197875,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 126.02038788795471
+    },
+    {
+      "instance_id": "django__django-10924",
+      "cost": 0.03186125,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 88.81009268760681
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-25638",
+      "cost": 0.031205000000000004,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 130.94734692573547
+    },
+    {
+      "instance_id": "sympy__sympy-17630",
+      "cost": 0.03102875,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 42.153663873672485
+    },
+    {
+      "instance_id": "sympy__sympy-13647",
+      "cost": 0.0309975,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 152.2872564792633
+    },
+    {
+      "instance_id": "sympy__sympy-20049",
+      "cost": 0.03074125,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 151.9916501045227
+    },
+    {
+      "instance_id": "django__django-11910",
+      "cost": 0.030606249999999998,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 200.85686707496643
+    },
+    {
+      "instance_id": "sympy__sympy-19007",
+      "cost": 0.030265,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 111.9907739162445
+    },
+    {
+      "instance_id": "django__django-14667",
+      "cost": 0.030260000000000002,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 146.236403465271
+    },
+    {
+      "instance_id": "sympy__sympy-15308",
+      "cost": 0.03005,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 58.06904888153076
+    },
+    {
+      "instance_id": "django__django-15996",
+      "cost": 0.0294475,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 39.10629463195801
+    },
+    {
+      "instance_id": "sympy__sympy-14396",
+      "cost": 0.02943875,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 43.047276735305786
+    },
+    {
+      "instance_id": "psf__requests-2317",
+      "cost": 0.02919875,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 34.31662201881409
+    },
+    {
+      "instance_id": "django__django-15695",
+      "cost": 0.029127499999999997,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 136.48359370231628
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-26020",
+      "cost": 0.02828125,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 35.96877312660217
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8282",
+      "cost": 0.02824625,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 74.83540391921997
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8721",
+      "cost": 0.02814,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 241.56286239624023
+    },
+    {
+      "instance_id": "django__django-12125",
+      "cost": 0.027835,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 34.780754804611206
+    },
+    {
+      "instance_id": "django__django-15819",
+      "cost": 0.027733749999999998,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 137.76125693321228
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-26011",
+      "cost": 0.02769875,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 64.32372546195984
+    },
+    {
+      "instance_id": "sympy__sympy-18189",
+      "cost": 0.027595,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 141.39578223228455
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-7738",
+      "cost": 0.0273575,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 141.25717425346375
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23563",
+      "cost": 0.02726375,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 30.266618251800537
+    },
+    {
+      "instance_id": "sympy__sympy-13043",
+      "cost": 0.0271875,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 55.23653864860535
+    },
+    {
+      "instance_id": "psf__requests-1963",
+      "cost": 0.027165,
+      "api_calls": 5,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 100.93412494659424
+    },
+    {
+      "instance_id": "django__django-13447",
+      "cost": 0.02694625,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 68.59846258163452
+    },
+    {
+      "instance_id": "django__django-15213",
+      "cost": 0.0259875,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 180.28215146064758
+    },
+    {
+      "instance_id": "django__django-16229",
+      "cost": 0.025863749999999998,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 165.21450901031494
+    },
+    {
+      "instance_id": "sympy__sympy-20212",
+      "cost": 0.02563125,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 201.89678478240967
+    },
+    {
+      "instance_id": "django__django-12700",
+      "cost": 0.0254575,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 95.3257749080658
+    },
+    {
+      "instance_id": "django__django-15790",
+      "cost": 0.025345,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 72.47274160385132
+    },
+    {
+      "instance_id": "django__django-14534",
+      "cost": 0.025305,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 55.73435568809509
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-15535",
+      "cost": 0.02496875,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 114.47517728805542
+    },
+    {
+      "instance_id": "sympy__sympy-14024",
+      "cost": 0.02489375,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 144.29948663711548
+    },
+    {
+      "instance_id": "sympy__sympy-23117",
+      "cost": 0.02485,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 107.2123658657074
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25433",
+      "cost": 0.024807500000000003,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 40.01083469390869
+    },
+    {
+      "instance_id": "sympy__sympy-21171",
+      "cost": 0.02479,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 24.461538076400757
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-22835",
+      "cost": 0.024530000000000003,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 31.500258445739746
+    },
+    {
+      "instance_id": "django__django-16046",
+      "cost": 0.02411625,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 41.830684185028076
+    },
+    {
+      "instance_id": "sympy__sympy-13177",
+      "cost": 0.02392,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 63.52720379829407
+    },
+    {
+      "instance_id": "django__django-15252",
+      "cost": 0.02284,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 107.39206314086914
+    },
+    {
+      "instance_id": "django__django-14382",
+      "cost": 0.02279125,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 50.79032874107361
+    },
+    {
+      "instance_id": "django__django-14017",
+      "cost": 0.022253749999999996,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 107.43493413925171
+    },
+    {
+      "instance_id": "sympy__sympy-11897",
+      "cost": 0.02223375,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 143.32339191436768
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13779",
+      "cost": 0.02197125,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 65.0655837059021
+    },
+    {
+      "instance_id": "sympy__sympy-14817",
+      "cost": 0.02180625,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 37.32575964927673
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23299",
+      "cost": 0.02174625,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 186.3872046470642
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-11040",
+      "cost": 0.0216575,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 25.86467695236206
+    },
+    {
+      "instance_id": "pylint-dev__pylint-7228",
+      "cost": 0.02141125,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 83.97772192955017
+    },
+    {
+      "instance_id": "sympy__sympy-13437",
+      "cost": 0.02134375,
+      "api_calls": 4,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 81.74318528175354
+    },
+    {
+      "instance_id": "django__django-11999",
+      "cost": 0.02115625,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 33.92272663116455
+    },
+    {
+      "instance_id": "django__django-12453",
+      "cost": 0.020880000000000003,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 27.464589834213257
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25498",
+      "cost": 0.02074625,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 100.07112860679626
+    },
+    {
+      "instance_id": "django__django-14580",
+      "cost": 0.02067625,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 203.64007258415222
+    },
+    {
+      "instance_id": "sympy__sympy-16106",
+      "cost": 0.020285,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 38.9140625
+    },
+    {
+      "instance_id": "django__django-12915",
+      "cost": 0.020162500000000003,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 133.10088419914246
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-24265",
+      "cost": 0.02000375,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 24.63180637359619
+    },
+    {
+      "instance_id": "mwaskom__seaborn-2848",
+      "cost": 0.019889999999999998,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 117.82018184661865
+    },
+    {
+      "instance_id": "sympy__sympy-24213",
+      "cost": 0.0196525,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 38.75379014015198
+    },
+    {
+      "instance_id": "astropy__astropy-6938",
+      "cost": 0.0196325,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 27.784013986587524
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-13439",
+      "cost": 0.019129999999999998,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 24.736456632614136
+    },
+    {
+      "instance_id": "django__django-11797",
+      "cost": 0.018944999999999997,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 175.6197338104248
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-25747",
+      "cost": 0.01867125,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 33.69276738166809
+    },
+    {
+      "instance_id": "mwaskom__seaborn-3407",
+      "cost": 0.01858125,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 34.50558090209961
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-18869",
+      "cost": 0.01850125,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 40.87664532661438
+    },
+    {
+      "instance_id": "sympy__sympy-11400",
+      "cost": 0.018272499999999997,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 29.428749799728394
+    },
+    {
+      "instance_id": "pylint-dev__pylint-6506",
+      "cost": 0.01789,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 70.58631896972656
+    },
+    {
+      "instance_id": "sympy__sympy-22714",
+      "cost": 0.017615,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 104.36401033401489
+    },
+    {
+      "instance_id": "pytest-dev__pytest-6116",
+      "cost": 0.0175,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 25.53829050064087
+    },
+    {
+      "instance_id": "sympy__sympy-14774",
+      "cost": 0.0171525,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 23.62508225440979
+    },
+    {
+      "instance_id": "sympy__sympy-16792",
+      "cost": 0.01709375,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 85.16127419471741
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-24970",
+      "cost": 0.01699625,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 40.262911796569824
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-23476",
+      "cost": 0.01688,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 97.64926791191101
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-22711",
+      "cost": 0.016612500000000002,
+      "api_calls": 2,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 32.652305603027344
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5227",
+      "cost": 0.016343749999999997,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 27.168275833129883
+    },
+    {
+      "instance_id": "django__django-11583",
+      "cost": 0.0152225,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 27.551114082336426
+    },
+    {
+      "instance_id": "mwaskom__seaborn-3010",
+      "cost": 0.01427625,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 17.71328902244568
+    },
+    {
+      "instance_id": "pylint-dev__pylint-5859",
+      "cost": 0.0136725,
+      "api_calls": 3,
+      "exit_status": "TypeError",
+      "elapsed_time_seconds": 79.01293802261353
+    },
+    {
+      "instance_id": "django__django-15388",
+      "cost": 0.01339625,
+      "api_calls": 3,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 30.60157060623169
+    },
+    {
+      "instance_id": "django__django-16139",
+      "cost": 0.01283625,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 28.37269115447998
+    },
+    {
+      "instance_id": "sympy__sympy-16988",
+      "cost": 0.01282625,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 46.79856014251709
+    },
+    {
+      "instance_id": "sympy__sympy-13895",
+      "cost": 0.00982375,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 106.37644743919373
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-10508",
+      "cost": 0.0090925,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 19.483795404434204
+    },
+    {
+      "instance_id": "django__django-10914",
+      "cost": 0.0073012500000000004,
+      "api_calls": 1,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 37.98695254325867
+    },
+    {
+      "instance_id": "django__django-15498",
+      "cost": 0.0040775,
+      "api_calls": 1,
+      "exit_status": "TypeError",
+      "elapsed_time_seconds": 9.146462202072144
+    },
+    {
+      "instance_id": "sphinx-doc__sphinx-8801",
+      "cost": 0.0,
+      "api_calls": 0,
+      "exit_status": "ConnectError",
+      "elapsed_time_seconds": 9.478111982345581
+    }
+  ],
+  "avg_cost_per_instance": 0.07969477083333333,
+  "avg_time_per_instance": 123.51276014169058
+}

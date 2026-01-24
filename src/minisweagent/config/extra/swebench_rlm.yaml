@@ -341,14 +341,14 @@ agent:
     Your next action:
     </instructions>
 
-  max_iterations: 200
-  step_limit: 200
-  cost_limit: 1.0
+  max_iterations: 100
+  step_limit: 100
+  cost_limit: 5.0
   max_output_length: 50000
 
 environment:
   cwd: "/testbed"
-  timeout: 120
+  timeout: 180
   env:
     PAGER: cat
     MANPAGER: cat
@@ -358,7 +358,20 @@ environment:
   environment_class: docker
 
 model:
-  model_name: "gpt-4o"
-  model_class: "rlm"
+  model_name: "gemini-2.5-pro"
+  provider: "google-genai"
+  provider_options:
+    thinking_mode: false
+    # thinking_budget: 12000
   model_kwargs:
-    temperature: 0.0
+    temperature: 0.9  # 0.0 = deterministic (recommended for SWE-bench)
+
+
+# model:
+#   model_name: "gemini-2.5-pro"
+#   provider: "google-genai"
+#   provider_options:
+#     thinking_mode: true      # Enable Gemini's thinking mode
+#     thinking_budget: 10000   # Token budget for thinking
+#     grounding: false         # Enable Google Search (optional)
+#     code_execution: false   
