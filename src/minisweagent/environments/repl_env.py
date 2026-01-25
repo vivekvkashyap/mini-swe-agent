@@ -251,13 +251,15 @@ B64EOF"""
         
         # Use Python script inside Docker - avoid heredoc issues by using a simpler approach
         # Write Python as a single command line to avoid quote escaping issues
+        # Python 3.6 compatible: use stdout/stderr=PIPE instead of capture_output=True
         script = f"""python3 -c "
 import subprocess
 import sys
 
 find_cmd = '''{find_cmd}'''
-result = subprocess.run(find_cmd, shell=True, capture_output=True, text=True)
-file_paths = [p.strip() for p in result.stdout.strip().split(chr(10)) if p.strip()]
+# capture_output=True requires Python 3.7+, use PIPE for 3.6 compatibility
+result = subprocess.run(find_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+file_paths = [p.strip() for p in result.stdout.decode('utf-8', errors='ignore').strip().split(chr(10)) if p.strip()]
 
 for fpath in file_paths:
     try:

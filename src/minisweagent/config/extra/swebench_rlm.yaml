@@ -10,65 +10,92 @@ agent:
     AVAILABLE:
     - `context["issue"]`: Problem statement
     - `context["files"]`: All files as string (format: `###(path)\ncontent`)
-    - `get_file(path)`: Get specific file content (raises FileNotFoundError if missing)
+    - `get_file(path)`: Get specific file content (FOR EDITING ONLY)
     - `write_file(path, content)`: Write file to Docker
     - `bash(cmd)`: Run tests only (e.g., `bash("pytest tests/")`)
     - `llm_query(prompt)`: Query sub-LLM for analysis (500K context)
 
-    RULES:
-    - Search files with Python regex on `context["files"]`
-    - Use `get_file()` to read, `write_file()` to modify
-    - Do NOT use bash for file reading (no grep, cat, sed)
-    - Run code in ```repl blocks
+    ⚠️ MANDATORY: USE REGEX TO EXTRACT CODE - NOT get_file() FOR READING!
+    - WRONG: Find file path → get_file() → print entire file
+    - RIGHT: Use regex to extract the specific function/class/code snippet you need
 
-    CRITICAL RULES:
-    1. ONE code block per response - wait for output before next step
-    2. If search/regex fails, TRY DIFFERENT PATTERNS - don't give up
-    3. VERIFY changes work before calling FINAL - run tests first
-    4. For string replacement: print the old string first to confirm exact match
-    5. NEVER call FINAL(done) after an error - fix it first
+    RULES:
+    1. EXTRACT actual code snippets from context["files"] using regex
+    2. get_file() is ONLY for editing - NOT for reading/exploring
+    3. Do NOT use bash for file reading (no grep, cat, sed)
+    4. ONE code block per response - wait for output
 
     WORKFLOW:
-    1. Explore: Find relevant files with regex
-    2. Read: Use get_file() on key files  
-    3. Fix: Modify and write_file()
+    1. Explore: Extract CODE SNIPPETS with regex from context["files"]
+    2. Understand: Read the extracted code to find the bug
+    3. Edit: NOW use get_file() for the specific file you need to modify
     4. Test: bash("pytest ...") - MUST pass before FINAL
     5. Done: Output `FINAL(done)` only after tests pass
 
-    SAFE EDITING PATTERN:
+    ✅ CORRECT: EXTRACT CODE WITH REGEX
     ```repl
-    content = get_file("path/to/file.py")
-    # First, print to verify exact string exists
-    old = "exact string to replace"
-    if old in content:
-        new_content = content.replace(old, "new string")
-        write_file("path/to/file.py", new_content)
-    else:
-        print("Pattern not found! Searching for alternatives...")
-        # Try to find similar patterns
+    import re
+    # Extract a specific function definition
+    match = re.search(r'(def _cstack\([^)]*\):.*?)(?=\ndef |\nclass |\Z)', context["files"], re.DOTALL)
+    if match:
+        print(match.group(1)[:800])  # See the actual code!
+    
+    # Extract function AND its file path
+    match = re.search(r'###\(([^)]+)\)\n.*?(def separability_matrix.*?return[^\n]+)', context["files"], re.DOTALL)
+    if match:
+        print(f"File: {match.group(1)}")
+        print(f"Code:\n{match.group(2)[:500]}")
+    
+    # Extract a class definition
+    match = re.search(r'(class SomeClass.*?)(?=\nclass |\n###\(|\Z)', context["files"], re.DOTALL)
     ```
 
-    When done: `FINAL(done)` or `FINAL_VAR(varname)` - ONLY after verification
+    ❌ WRONG: DON'T DO THIS
+    ```repl
+    # BAD - just finds paths, then dumps entire file
+    paths = re.findall(r'###\(([^)]+)\)', context["files"])
+    content = get_file(paths[0])  # Dumps 500+ lines!
+    print(content)  # Wasteful!
+    ```
+
+    EDITING (only after you understand the bug):
+    ```repl
+    content = get_file("path/to/file.py")  # NOW get_file is OK
+    old = "exact string to replace"
+    if old in content:
+        write_file("path/to/file.py", content.replace(old, "new"))
+    ```
+
+    When done: `FINAL(done)` - ONLY after tests pass
 
   instance_template: |
     <problem>
     {{task}}
     </problem>
 
-    Fix the bug above. BE CONCISE - output code, not explanations.
+    Fix the bug. BE CONCISE.
     
-    REMEMBER:
+    ⚠️ IMPORTANT:
+    - Use REGEX to EXTRACT code snippets from context["files"]
+    - Do NOT use get_file() just to read/explore - only for editing!
     - ONE code block per response, wait for results
-    - If pattern not found, try alternatives - DON'T give up
-    - VERIFY fix works (run tests) BEFORE calling FINAL(done)
-    - NEVER call FINAL after an error
     
-    Start exploring (don't provide final answer yet):
+    Start by EXTRACTING relevant code (not just file paths):
     ```repl
     import re
-    print(context["issue"][:500])
-    all_files = re.findall(r'###\(([^)]+)\)', context["files"])
-    print(f"Total: {len(all_files)} files")
+    print(context["issue"][:300])
+    
+    # Extract the function mentioned in the issue
+    func_name = "FUNCTION_FROM_ISSUE"  # Replace with actual function name
+    match = re.search(rf'(def {func_name}\([^)]*\):.*?)(?=\ndef |\nclass |\Z)', context["files"], re.DOTALL)
+    if match:
+        print(f"Found {func_name}:")
+        print(match.group(1)[:600])
+    else:
+        # Try finding which file contains it
+        match = re.search(rf'###\(([^)]+)\)\n.*?def {func_name}', context["files"])
+        if match:
+            print(f"Function in: {match.group(1)}")
     ```
 
   # Templates for depth=0 (no sub-LLM support)
@@ -80,68 +107,95 @@ agent:
     AVAILABLE:
     - `context["issue"]`: Problem statement
     - `context["files"]`: All files as string (format: `###(path)\ncontent`)
-    - `get_file(path)`: Get specific file content (raises FileNotFoundError if missing)
+    - `get_file(path)`: Get specific file content (FOR EDITING ONLY)
     - `write_file(path, content)`: Write file to Docker
     - `bash(cmd)`: Run tests only (e.g., `bash("pytest tests/")`)
 
-    RULES:
-    - Search files with Python regex on `context["files"]`
-    - Use `get_file()` to read, `write_file()` to modify
-    - Do NOT use bash for file reading (no grep, cat, sed)
-    - Run code in ```repl blocks
+    ⚠️ MANDATORY: USE REGEX TO EXTRACT CODE - NOT get_file() FOR READING!
+    - WRONG: Find file path → get_file() → print entire file
+    - RIGHT: Use regex to extract the specific function/class/code snippet you need
 
-    CRITICAL RULES:
-    1. ONE code block per response - wait for output before next step
-    2. If search/regex fails, TRY DIFFERENT PATTERNS - don't give up
-    3. VERIFY changes work before calling FINAL - run tests first
-    4. For string replacement: print the old string first to confirm exact match
-    5. NEVER call FINAL(done) after an error - fix it first
+    RULES:
+    1. EXTRACT actual code snippets from context["files"] using regex
+    2. get_file() is ONLY for editing - NOT for reading/exploring
+    3. Do NOT use bash for file reading (no grep, cat, sed)
+    4. ONE code block per response - wait for output
 
     WORKFLOW:
-    1. Explore: Find relevant files with regex
-    2. Read: Use get_file() on key files
-    3. Fix: Modify and write_file()
+    1. Explore: Extract CODE SNIPPETS with regex from context["files"]
+    2. Understand: Read the extracted code to find the bug
+    3. Edit: NOW use get_file() for the specific file you need to modify
     4. Test: bash("pytest ...") - MUST pass before FINAL
     5. Done: Output `FINAL(done)` only after tests pass
 
-    SAFE EDITING PATTERN:
+    ✅ CORRECT: EXTRACT CODE WITH REGEX
     ```repl
-    content = get_file("path/to/file.py")
-    # First, print to verify exact string exists
-    old = "exact string to replace"
-    if old in content:
-        new_content = content.replace(old, "new string")
-        write_file("path/to/file.py", new_content)
-    else:
-        print("Pattern not found! Searching for alternatives...")
-        # Try to find similar patterns
+    import re
+    # Extract a specific function definition
+    match = re.search(r'(def _cstack\([^)]*\):.*?)(?=\ndef |\nclass |\Z)', context["files"], re.DOTALL)
+    if match:
+        print(match.group(1)[:800])  # See the actual code!
+    
+    # Extract function AND its file path
+    match = re.search(r'###\(([^)]+)\)\n.*?(def separability_matrix.*?return[^\n]+)', context["files"], re.DOTALL)
+    if match:
+        print(f"File: {match.group(1)}")
+        print(f"Code:\n{match.group(2)[:500]}")
+    
+    # Extract a class definition
+    match = re.search(r'(class SomeClass.*?)(?=\nclass |\n###\(|\Z)', context["files"], re.DOTALL)
     ```
 
-    When done: `FINAL(done)` or `FINAL_VAR(varname)` - ONLY after verification
+    ❌ WRONG: DON'T DO THIS
+    ```repl
+    # BAD - just finds paths, then dumps entire file
+    paths = re.findall(r'###\(([^)]+)\)', context["files"])
+    content = get_file(paths[0])  # Dumps 500+ lines!
+    print(content)  # Wasteful!
+    ```
+
+    EDITING (only after you understand the bug):
+    ```repl
+    content = get_file("path/to/file.py")  # NOW get_file is OK
+    old = "exact string to replace"
+    if old in content:
+        write_file("path/to/file.py", content.replace(old, "new"))
+    ```
+
+    When done: `FINAL(done)` - ONLY after tests pass
 
   instance_template_depth0: |
     <problem>
     {{task}}
     </problem>
 
-    Fix the bug above. BE CONCISE - output code, not explanations.
+    Fix the bug. BE CONCISE.
     
-    REMEMBER:
+    ⚠️ IMPORTANT:
+    - Use REGEX to EXTRACT code snippets from context["files"]
+    - Do NOT use get_file() just to read/explore - only for editing!
     - ONE code block per response, wait for results
-    - If pattern not found, try alternatives - DON'T give up
-    - VERIFY fix works (run tests) BEFORE calling FINAL(done)
-    - NEVER call FINAL after an error
     
-    Start exploring (don't provide final answer yet):
+    Start by EXTRACTING relevant code (not just file paths):
     ```repl
     import re
-    print(context["issue"][:500])
-    all_files = re.findall(r'###\(([^)]+)\)', context["files"])
-    print(f"Total: {len(all_files)} files")
+    print(context["issue"][:300])
+    
+    # Extract the function mentioned in the issue
+    func_name = "FUNCTION_FROM_ISSUE"  # Replace with actual function name
+    match = re.search(rf'(def {func_name}\([^)]*\):.*?)(?=\ndef |\nclass |\Z)', context["files"], re.DOTALL)
+    if match:
+        print(f"Found {func_name}:")
+        print(match.group(1)[:600])
+    else:
+        # Try finding which file contains it
+        match = re.search(rf'###\(([^)]+)\)\n.*?def {func_name}', context["files"])
+        if match:
+            print(f"Function in: {match.group(1)}")
     ```
 
-  max_iterations: 100
-  step_limit: 100
+  max_iterations: 150
+  step_limit: 150
   cost_limit: 5.0
   max_output_length: 50000
 
@@ -163,14 +217,4 @@ model:
     thinking_mode: false
     # thinking_budget: 12000
   model_kwargs:
-    temperature: 0.2  # 0.0 = deterministic (recommended for SWE-bench)
-
-
-# model:
-#   model_name: "gemini-2.5-pro"
-#   provider: "google-genai"
-#   provider_options:
-#     thinking_mode: true      # Enable Gemini's thinking mode
-#     thinking_budget: 10000   # Token budget for thinking
-#     grounding: false         # Enable Google Search (optional)
-#     code_execution: false   
+    temperature: 0.0  # 0.0 = deterministic (recommended for SWE-bench)

@@ -1,0 +1,45 @@
+{
+  "total_instances": 5,
+  "total_cost": 1.0336187500000003,
+  "total_time_seconds": 1532.1641733646393,
+  "total_time_formatted": "25.54m",
+  "instances": [
+    {
+      "instance_id": "astropy__astropy-14995",
+      "cost": 0.27236375,
+      "api_calls": 18,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 334.5331904888153
+    },
+    {
+      "instance_id": "astropy__astropy-6938",
+      "cost": 0.24819875,
+      "api_calls": 11,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 106.72865295410156
+    },
+    {
+      "instance_id": "astropy__astropy-14182",
+      "cost": 0.20846375000000003,
+      "api_calls": 15,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 690.3394088745117
+    },
+    {
+      "instance_id": "astropy__astropy-12907",
+      "cost": 0.20494125000000002,
+      "api_calls": 22,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 214.80213141441345
+    },
+    {
+      "instance_id": "astropy__astropy-14365",
+      "cost": 0.09965125000000001,
+      "api_calls": 11,
+      "exit_status": "Submitted",
+      "elapsed_time_seconds": 179.22365283966064
+    }
+  ],
+  "avg_cost_per_instance": 0.20672375000000004,
+  "avg_time_per_instance": 306.43283467292787
+}
