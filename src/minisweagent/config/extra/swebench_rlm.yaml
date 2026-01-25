@@ -217,4 +217,4 @@ model:
     thinking_mode: false
     # thinking_budget: 12000
   model_kwargs:
-    temperature: 0.0  # 0.0 = deterministic (recommended for SWE-bench)
+    temperature: 0.2  # 0.0 = deterministic (recommended for SWE-bench)
